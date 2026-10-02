@@ -17,7 +17,7 @@ Módulo para Foundry VTT (sistema **dnd5e**) com as regras e o visual do mundo d
 No Foundry: **Configuração → Módulos Adicionais → Instalar Módulo**, e cole no campo **URL do Manifesto**:
 
 ```
-https://github.com/<usuario>/<repositorio>/releases/latest/download/module.json
+https://github.com/DevFragment/zintharion-dnd5e/releases/latest/download/module.json
 ```
 
 Depois ative o módulo no mundo em **Gerenciar Módulos**.
