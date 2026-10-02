@@ -1,0 +1,48 @@
+<section class="zin-table-editor standard-form">
+  <p class="hint">{{localize "ZINTHARION.Ranks.Hint"}}</p>
+  <p class="hint zin-folder-hint">{{{localize "ZINTHARION.Ranks.EmblemHint" folder=emblemFolder}}}</p>
+  <div class="zin-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>{{localize "ZINTHARION.Ranks.From"}}</th>
+          <th>{{localize "ZINTHARION.Ranks.Rank"}}</th>
+          <th>{{localize "ZINTHARION.Ranks.Emblem"}}</th>
+          <th>{{localize "ZINTHARION.Ranks.Background"}}</th>
+          <th>{{localize "ZINTHARION.Ranks.Text"}}</th>
+          <th>{{localize "ZINTHARION.Ranks.Preview"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows}}
+        <tr class="{{#if invalid}}invalid{{/if}}">
+          <td><input type="number" data-index="{{index}}" data-field="min" value="{{min}}" min="0" step="1"></td>
+          <td><input type="text" data-index="{{index}}" data-field="rank" value="{{rank}}" maxlength="4"></td>
+          <td>
+            <div class="zin-emblem-cell">
+              {{#if emblemShown}}<img class="zin-emblem-thumb" src="{{emblemShown}}" alt="">{{/if}}
+              <file-picker type="image" data-index="{{index}}" data-field="img" value="{{img}}"
+                           placeholder="{{#if detected}}{{localize 'ZINTHARION.Ranks.Auto'}}{{/if}}"></file-picker>
+            </div>
+          </td>
+          <td><input type="color" data-index="{{index}}" data-field="bg" value="{{bg}}"></td>
+          <td><input type="color" data-index="{{index}}" data-field="fg" value="{{fg}}"></td>
+          <td><span class="zin-rank-chip" style="background:{{bg}};color:{{fg}}">{{rank}}</span></td>
+          <td>
+            <button type="button" class="icon" data-action="removeRow" data-index="{{index}}"
+                    data-tooltip="ZINTHARION.Ranks.Remove" aria-label="{{localize 'ZINTHARION.Ranks.Remove'}}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="zin-actions">
+    <button type="button" data-action="addRow"><i class="fa-solid fa-plus"></i> {{localize "ZINTHARION.Ranks.Add"}}</button>
+    <button type="button" data-action="detect"><i class="fa-solid fa-magnifying-glass"></i> {{localize "ZINTHARION.Ranks.Detect"}}</button>
+    <button type="button" data-action="reset"><i class="fa-solid fa-rotate-left"></i> {{localize "ZINTHARION.Ranks.Reset"}}</button>
+  </div>
+</section>

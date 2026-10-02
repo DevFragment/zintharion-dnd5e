@@ -1,0 +1,27 @@
+<div class="zin-stat zin-ability {{#if proficientSave}}zin-save-prof{{/if}}" data-ability="{{ key }}">
+    <div class="zin-hex">
+        <a class="zin-hex-label {{ @root.rollableClass }} ability-check" data-action="roll" data-type="ability"
+           data-tooltip="{{ label }}">{{ abbr }}</a>
+        {{#if @root.editable}}
+        <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="ability"
+                data-tooltip="{{ localize 'DND5E.AbilityConfigure' ability=label }}"
+                aria-label="{{ localize 'DND5E.AbilityConfigure' ability=label }}">
+            <i class="fas fa-cog" inert></i>
+        </button>
+        {{else}}
+        <a class="zin-hex-mod {{ @root.rollableClass }} ability-check" data-action="roll" data-type="ability">{{ dnd5e-formatModifier mod }}</a>
+        {{/if}}
+    </div>
+    <div class="zin-ability-score">
+        {{#if @root.editable}}
+        <input type="text" name="system.abilities.{{ key }}.value" value="{{ source.value }}" placeholder="10"
+               data-dtype="Number" class="uninput">
+        {{else}}
+        {{ value }}
+        {{/if}}
+    </div>
+    <a class="zin-ability-save saving-throw {{ @root.rollableClass }}" data-action="roll" data-type="ability"
+       data-tooltip="{{ localize 'ZINTHARION.Sheet.SaveOf' ability=label }}">
+        <i class="fas fa-shield-halved" inert></i> {{ dnd5e-formatModifier save.value }}
+    </a>
+</div>
