@@ -1,0 +1,11 @@
+<nav class="tabs sheet-tabs zin-tabs" data-group="primary" aria-roledescription="{{localize 'SHEETS.FormNavLabel'}}">
+    {{~#each tabs}}
+    <a class="item control {{#if active}}active{{/if}} {{ cssClass }}" data-action="tab" data-group="primary"
+       data-tab="{{ id }}" aria-label="{{ localize label }}">
+        {{#if icon}}<i class="{{ icon }}" inert></i>{{/if}}
+        {{#if svg}}<dnd5e-icon src="{{ svg }}"></dnd5e-icon>{{/if}}
+        <span>{{ localize label }}</span>
+    </a>
+    {{/each~}}
+    {{#if zinLogo}}<img class="zin-tabs-logo" src="{{ zinLogo }}" alt="">{{/if}}
+</nav>

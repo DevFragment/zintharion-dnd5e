@@ -1,0 +1,49 @@
+<section class="zin-sync">
+    {{#unless configured}}
+    <div class="zin-sync-empty">
+        <p>{{ localize "ZINTHARION.Sync.NotConfigured" }}</p>
+        <button type="button" data-action="settings"><i class="fa-solid fa-gear" inert></i> {{ localize "ZINTHARION.Sync.OpenSettings" }}</button>
+    </div>
+    {{else}}
+    <header class="zin-sync-bar">
+        <span class="zin-sync-url"><i class="fa-solid fa-globe" inert></i> {{ siteUrl }}</span>
+        <button type="button" data-action="refresh" data-tooltip="ZINTHARION.Sync.Refresh"><i class="fa-solid fa-rotate" inert></i></button>
+        <button type="button" data-action="openSite" data-tooltip="ZINTHARION.Sync.OpenSite"><i class="fa-solid fa-arrow-up-right-from-square" inert></i></button>
+        {{#if isGM}}
+        <button type="button" data-action="sendXpTable" data-tooltip="ZINTHARION.Sync.XpTooltip"><i class="fa-solid fa-chart-line" inert></i> {{ localize "ZINTHARION.Sync.XpButton" }}</button>
+        {{/if}}
+    </header>
+
+    {{#if error}}<p class="zin-sync-error"><i class="fa-solid fa-triangle-exclamation" inert></i> {{ error }}</p>{{/if}}
+    {{#if loading}}<p class="zin-sync-loading"><i class="fa-solid fa-spinner fa-spin" inert></i> {{ localize "ZINTHARION.Sync.Loading" }}</p>{{/if}}
+
+    <ol class="zin-sync-list zin-scroll">
+        {{#each rows}}
+        <li class="zin-sync-row {{#if attention}}attention{{/if}}" data-character-id="{{ id }}">
+            <img class="zin-sync-portrait" src="{{#if portraitUrl}}{{ portraitUrl }}{{else}}icons/svg/mystery-man.svg{{/if}}" alt="">
+            <div class="zin-sync-info">
+                <strong>{{ name }}</strong>{{#if actorName}} <span class="zin-sync-muted">→ {{ actorName }}</span>{{/if}}
+                <span class="zin-sync-muted">{{ owner }} · {{ class }} · {{ localize "ZINTHARION.Sync.Level" }} {{ level }}</span>
+                <span class="zin-sync-tags">
+                    {{#each tags}}<span class="zin-sync-tag {{ css }}">{{ label }}</span>{{/each}}
+                    {{#if syncedAt}}<span class="zin-sync-muted">{{ localize "ZINTHARION.Sync.LastSync" }} {{ syncedAt }}</span>{{/if}}
+                </span>
+            </div>
+            <div class="zin-sync-actions">
+                {{#if busy}}
+                <i class="fa-solid fa-spinner fa-spin" inert></i>
+                {{else}}
+                {{#if canPull}}<button type="button" data-action="pull"><i class="fa-solid fa-cloud-arrow-down" inert></i> {{ localize "ZINTHARION.Sync.Pull" }}</button>{{/if}}
+                {{#if canPush}}<button type="button" data-action="push"><i class="fa-solid fa-cloud-arrow-up" inert></i> {{ localize "ZINTHARION.Sync.Push" }}</button>{{/if}}
+                {{#if canImport}}<button type="button" data-action="importCharacter"><i class="fa-solid fa-user-plus" inert></i> {{ localize "ZINTHARION.Sync.Import" }}</button>{{/if}}
+                {{#if actorId}}<button type="button" data-action="openSheet" data-tooltip="ZINTHARION.Sync.OpenSheet"><i class="fa-solid fa-id-card" inert></i></button>{{/if}}
+                <button type="button" data-action="openSite" data-tooltip="ZINTHARION.Sync.OpenSite"><i class="fa-solid fa-arrow-up-right-from-square" inert></i></button>
+                {{/if}}
+            </div>
+        </li>
+        {{else}}
+        {{#unless loading}}<li class="zin-sync-empty">{{ localize "ZINTHARION.Sync.NoCharacters" }}</li>{{/unless}}
+        {{/each}}
+    </ol>
+    {{/unless}}
+</section>

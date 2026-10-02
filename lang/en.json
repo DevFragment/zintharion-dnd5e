@@ -1,0 +1,222 @@
+{
+  "ZINTHARION": {
+    "Settings": {
+      "Theme": {
+        "Name": "Use Zintharion theme",
+        "Hint": "Applies the blue, teal and gold colors to character sheets (only for you)."
+      },
+      "Logo": {
+        "Name": "Sheet crest",
+        "Hint": "Image shown in the character sheet header."
+      },
+      "ShowRank": {
+        "Name": "Show rank on sheet",
+        "Hint": "Shows the rank badge (F, E, D... Ω) next to the character name."
+      },
+      "ExhaustionMax": {
+        "Name": "Maximum Exhaustion levels",
+        "Hint": "How many Exhaustion levels exist. The last level is marked as death on the sheet. Zintharion default: 10."
+      },
+      "XpMenu": {
+        "Name": "Experience Table",
+        "Label": "Edit XP table",
+        "Hint": "Sets how much XP each level requires. The number of rows sets the maximum level."
+      },
+      "RankMenu": {
+        "Name": "Rank Table",
+        "Label": "Edit ranks",
+        "Hint": "Sets the starting level and colors of each rank."
+      },
+      "MaxSpellLevel": {
+        "Name": "Maximum spell level",
+        "Hint": "Highest spell level that exists in the world (9 = standard D&D). Levels above 9 get their own spell slots, which you set manually in the Spell Slots configuration."
+      },
+      "SiteMenu": {
+        "Name": "Zintharion website",
+        "Label": "Open sync",
+        "Hint": "Lists the website characters and lets you Receive (before a session) and Send (after a session)."
+      },
+      "SiteUrl": {
+        "Name": "Website address",
+        "Hint": "Zintharion website address, e.g. https://zintharion.vercel.app (shown on your website profile)."
+      },
+      "SiteToken": {
+        "Name": "Website token",
+        "Hint": "Your personal token, created at Profile → Foundry integration. Stored only on this computer."
+      },
+      "SiteCheck": {
+        "Name": "Notify on load",
+        "Hint": "When the world opens, tells you if there are characters to receive or send."
+      },
+      "ConcExpanded": {
+        "Name": "Enable Expanded Concentration",
+        "Hint": "Casters can maintain several Concentration spells (limit = highest spellcasting modifier), make a single save with a higher DC per maintained spell and, failing by 10 or more with 2+ spells, suffer an Arcane Explosion."
+      },
+      "ConcDcMods": {
+        "Name": "DC modifier per maintained spell",
+        "Hint": "Values added to the Concentration DC, comma-separated: 1st = 1 spell, 2nd = 2 spells, and so on. Beyond the last, the last value repeats. Default: 0, 5, 10, 15, 20, 25."
+      },
+      "AnomalyTable": {
+        "Name": "Anomaly Table (optional)",
+        "Hint": "UUID of a Roll Table used to suggest a Magical Anomaly after an Arcane Explosion (e.g. RollTable.abc123). Empty = notice only."
+      },
+      "AnomalyVisibility": {
+        "Name": "Magical Anomaly notice",
+        "Hint": "Who sees the Temporary Magical Anomaly message.",
+        "GM": "GM only",
+        "Public": "Everyone"
+      }
+    },
+    "Currency": {
+      "DA": "Astral Diamond",
+      "DAAbbr": "AD"
+    },
+    "Sheet": {
+      "Rank": "Rank {rank}",
+      "Label": "Zintharion",
+      "TabOverview": "Overview",
+      "TabCharacter": "Character",
+      "HD": "HD",
+      "Init": "Init",
+      "Prof": "Prof.",
+      "ProfShort": "PB",
+      "XP": "XP",
+      "SaveOf": "{ability} saving throw",
+      "SpellDC": "Spell DC"
+    },
+    "XP": {
+      "Title": "Experience Table — Zintharion",
+      "Hint": "Total XP required to reach each level. Level 1 always starts at 0. The number of rows is the world's maximum level.",
+      "Level": "Level",
+      "Total": "Total XP",
+      "Next": "To next",
+      "Rank": "Rank",
+      "AddLevel": "Add level",
+      "RemoveLevel": "Remove last",
+      "Reset": "Restore default",
+      "Import": "Import JSON",
+      "Export": "Copy JSON",
+      "Save": "Save",
+      "ImportPrompt": "Paste a list of numbers below, e.g.: [0, 300, 900, 2700]",
+      "Copied": "XP table copied to clipboard.",
+      "Saved": "XP table saved. Maximum level is now {max}.",
+      "ErrorOrder": "XP must increase at every level. Fix the rows marked in red.",
+      "ErrorImport": "Could not read the JSON. Use a list of numbers, e.g.: [0, 300, 900].",
+      "ErrorMin": "The table needs at least 1 level.",
+      "ResetConfirm": "Restore the default Zintharion XP table? (30 levels; level 3 = 1,000 XP)"
+    },
+    "Ranks": {
+      "Title": "Rank Table — Zintharion",
+      "Hint": "Each rank starts at the given level and lasts until the level before the next rank.",
+      "From": "From level",
+      "Rank": "Rank",
+      "Background": "Background",
+      "Text": "Text color",
+      "Preview": "Preview",
+      "Add": "Add rank",
+      "Remove": "Remove",
+      "Reset": "Restore default",
+      "Save": "Save",
+      "Saved": "Rank table saved.",
+      "ErrorOrder": "Starting levels must be unique and increasing, and the rank cannot be empty.",
+      "Emblem": "Emblem",
+      "EmblemHint": "Put emblem images in <code>Data/{folder}</code> named after the rank (e.g. <b>F.png</b>, <b>SS.webp</b>, <b>omega.png</b>). They are found automatically when the world loads or with the \"Find emblems\" button. You can also pick an image manually in the Emblem column.",
+      "Auto": "automatic",
+      "Detect": "Find emblems",
+      "EmblemsFound": "{count} emblem(s) found in {folder}: {list}"
+    },
+    "Sync": {
+      "AppTitle": "Zintharion website",
+      "DirectoryButton": "Zintharion website",
+      "NotConfigured": "Set the website address and your token in the Zintharion module settings.",
+      "OpenSettings": "Open settings",
+      "Unreachable": "Could not reach the website ({url}). Check the address and your connection.",
+      "Refresh": "Refresh list",
+      "OpenSite": "Open on website",
+      "OpenSheet": "Open sheet",
+      "Loading": "Loading website characters…",
+      "NoCharacters": "No characters available for this token.",
+      "Level": "level",
+      "LastSync": "synced",
+      "Pull": "Receive",
+      "Push": "Send",
+      "Import": "Import",
+      "TagNotApproved": "not approved",
+      "TagDead": "dead",
+      "TagPullRequested": "sent by website",
+      "TagSiteChanged": "changed on website",
+      "TagPushRequested": "website asked to send",
+      "TagOtherWorld": "in another world",
+      "PullTooltip": "Receive from website (update this sheet from the website)",
+      "PullTooltipUnlinked": "Receive from website (choose the website character)",
+      "PushTooltip": "Send to website (update the website from this sheet)",
+      "PushTooltipUnlinked": "Send to website (choose the website character)",
+      "ChooseTitle": "Link to website character",
+      "ChooseHint": "Which website character matches <b>{name}</b>?",
+      "AlreadyLinked": "already linked",
+      "Link": "Link",
+      "ConflictTitle": "Linked to another actor",
+      "ConflictHint": "This website character is already linked to another Foundry actor (maybe in another world). Link it to this actor from now on?",
+      "PullDone": "{name}: {count} field(s) updated from the website.",
+      "PullNothing": "{name} already matches the website.",
+      "PushApplied": "{name} sent to the website ({count} field(s) changed).",
+      "PushPending": "{name} sent. Staff will review it on the website.",
+      "NoOwner": "— No owner (GM only) —",
+      "ImportTitle": "Import {name}",
+      "ImportHint": "Creates an actor with the website data. Class, species and background are imported afterwards with Plutonium (the sheet shows what is missing).",
+      "Owner": "Owning player",
+      "Imported": "{name} created from the website.",
+      "InboxNotice": "Zintharion website: {receive} character(s) to receive, {send} send request(s), {newOnes} new character(s) to import.",
+      "XpButton": "Send XP table to website",
+      "XpDone": "XP table sent to the website ({max} levels).",
+      "BuildTitle": "New sheet: build it with Plutonium",
+      "BuildHint": "This sheet came from the website at level 0. Import what was chosen on the website with Plutonium (abilities and skills are chosen there). Once the class is added, the website XP is applied. When done, click Send so the website copies the sheet.",
+      "BuildClass": "Class",
+      "BuildSpecies": "Species",
+      "BuildBackground": "Background",
+      "BuildOpenPlutonium": "Plutonium Import",
+      "BuildDismiss": "Dismiss",
+      "BuildNoPlutonium": "Plutonium is not active or not available on this sheet.",
+      "XpTooltip": "The website starts using this world's XP table. It is also sent automatically when you save the table.",
+      "XpFailed": "Could not send the XP table to the website: {error}",
+      "ConfiguredTitle": "Sheet already built in Foundry",
+      "ConfiguredHint": "<b>{name}</b> already has a class in Foundry and was never synced. To keep the sheet intact, Foundry wins: it will be <b>sent</b> to the website first. After that, Receive and Send work normally. Send now?",
+      "CreatedLevel0": "{name} created at level 0 with only the name, portrait and texts from the website. Build class, species and background with Plutonium, then click Send.",
+      "BuildFinished": "{name}: build finished. Click Send to update the website.",
+      "RestoreTitle": "Restore sheet from website",
+      "RestoreHint": "The website has the full sheet of <b>{site}</b> (class, features, spells, items and effects) from the last send. It will <b>replace</b> everything on <b>{name}</b>. Continue?",
+      "Restored": "{name}: full sheet restored from the website ({count} field(s) updated with website changes made after the send).",
+      "FullSheetTag": "full sheet saved",
+      "ImportPullFailed": "{name} was created, but the website sheet did not arrive: {error}. Click Receive on the sheet to try again."
+    },
+    "Concentration": {
+      "Breakdown": "<i class=\"fas fa-brain\" inert></i> Base DC <b>{base}</b> + {count} maintained spells (<b>+{modifier}</b>) = DC <b>{dc}</b>",
+      "ExplosionTitle": "Critical Concentration Failure",
+      "ExplosionShort": "Arcane Explosion",
+      "FailedBy": "Failed by {margin} (rolled {total} vs DC {dc}). The spells break all at once.",
+      "SpellsLost": "Spells ended",
+      "Force": "force",
+      "SelfDamage": "{name} takes the full damage (ignores force resistance, not immunity). Already applied.",
+      "AreaSave": "Creatures within {radius} ft: <b>Dexterity save DC {dc}</b>. Fail: full damage. Success: half. Use the damage card below to apply it.",
+      "InArea": "In the area",
+      "AreaDamage": "area damage",
+      "Conditions": "The caster is <b>Prone</b>, <b>Incapacitated</b> until the end of their next turn and gains <b>+4 Exhaustion</b>.",
+      "IncapacitatedHint": "Arcane Explosion: incapacitated until the end of the next turn. Removed automatically in combat.",
+      "AnomalyTitle": "Temporary Magical Anomaly",
+      "AnomalyText": "{name}'s explosion left an anomaly in the area. Spells that were maintained:",
+      "AnomalySuggestion": "Suggestion",
+      "ExplosionError": "Error resolving the Arcane Explosion. Check the console (F12)."
+    }
+  },
+  "DND5E.SpellLevel10": "10th Level",
+  "DND5E.SpellLevel11": "11th Level",
+  "DND5E.SpellLevel12": "12th Level",
+  "DND5E.SpellLevel13": "13th Level",
+  "DND5E.SpellLevel14": "14th Level",
+  "DND5E.SpellLevel15": "15th Level",
+  "DND5E.SpellLevel16": "16th Level",
+  "DND5E.SpellLevel17": "17th Level",
+  "DND5E.SpellLevel18": "18th Level",
+  "DND5E.SpellLevel19": "19th Level",
+  "DND5E.SpellLevel20": "20th Level"
+}

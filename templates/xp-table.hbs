@@ -1,0 +1,34 @@
+<section class="zin-table-editor standard-form">
+  <p class="hint">{{localize "ZINTHARION.XP.Hint"}}</p>
+  <div class="zin-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>{{localize "ZINTHARION.XP.Level"}}</th>
+          <th>{{localize "ZINTHARION.XP.Total"}}</th>
+          <th>{{localize "ZINTHARION.XP.Next"}}</th>
+          <th>{{localize "ZINTHARION.XP.Rank"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows}}
+        <tr class="{{#if invalid}}invalid{{/if}} {{#if provisional}}zin-provisional{{/if}}">
+          <td>{{level}}</td>
+          <td>
+            <input type="number" data-xp-index="{{index}}" value="{{xp}}" min="0" step="1" {{#if first}}readonly{{/if}}>
+          </td>
+          <td>{{next}}</td>
+          <td><span class="zin-rank-chip" style="background:{{rank.bg}};color:{{rank.fg}}">{{rank.rank}}</span></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  <div class="zin-actions">
+    <button type="button" data-action="addRow"><i class="fa-solid fa-plus"></i> {{localize "ZINTHARION.XP.AddLevel"}}</button>
+    <button type="button" data-action="removeRow"><i class="fa-solid fa-minus"></i> {{localize "ZINTHARION.XP.RemoveLevel"}}</button>
+    <button type="button" data-action="importJson"><i class="fa-solid fa-file-import"></i> {{localize "ZINTHARION.XP.Import"}}</button>
+    <button type="button" data-action="exportJson"><i class="fa-solid fa-copy"></i> {{localize "ZINTHARION.XP.Export"}}</button>
+    <button type="button" data-action="reset"><i class="fa-solid fa-rotate-left"></i> {{localize "ZINTHARION.XP.Reset"}}</button>
+  </div>
+</section>

@@ -1,0 +1,222 @@
+{
+  "ZINTHARION": {
+    "Settings": {
+      "Theme": {
+        "Name": "Usar tema Zintharion",
+        "Hint": "Aplica as cores azul, azul-esverdeado e dourado às fichas de personagem (só para você)."
+      },
+      "Logo": {
+        "Name": "Brasão da ficha",
+        "Hint": "Imagem mostrada no cabeçalho das fichas de personagem."
+      },
+      "ShowRank": {
+        "Name": "Mostrar rank na ficha",
+        "Hint": "Mostra o selo de rank (F, E, D... Ω) ao lado do nome do personagem."
+      },
+      "ExhaustionMax": {
+        "Name": "Níveis máximos de Exaustão",
+        "Hint": "Quantos níveis de Exaustão existem. O último nível é marcado como morte na ficha. Padrão de Zintharion: 10."
+      },
+      "XpMenu": {
+        "Name": "Tabela de Experiência",
+        "Label": "Editar tabela de XP",
+        "Hint": "Define quanto XP é preciso para cada nível. O número de linhas define o nível máximo."
+      },
+      "RankMenu": {
+        "Name": "Tabela de Ranks",
+        "Label": "Editar ranks",
+        "Hint": "Define a partir de qual nível começa cada rank e suas cores."
+      },
+      "MaxSpellLevel": {
+        "Name": "Círculo máximo de magia",
+        "Hint": "Maior círculo de magia do mundo (9 = D&D padrão). Os círculos acima do 9º ganham espaços próprios, definidos manualmente na configuração de Espaços de Magia."
+      },
+      "SiteMenu": {
+        "Name": "Site Zintharion",
+        "Label": "Abrir sincronização",
+        "Hint": "Lista as fichas do site e permite Receber (antes da sessão) e Enviar (depois da sessão)."
+      },
+      "SiteUrl": {
+        "Name": "Endereço do site",
+        "Hint": "Endereço do site Zintharion, ex.: https://zintharion.vercel.app (aparece no seu perfil do site)."
+      },
+      "SiteToken": {
+        "Name": "Token do site",
+        "Hint": "Seu token pessoal, gerado em Perfil → Integração com o Foundry. Fica salvo só neste computador."
+      },
+      "SiteCheck": {
+        "Name": "Avisar ao entrar",
+        "Hint": "Ao abrir o mundo, avisa se há fichas para receber do site ou pedidos de envio."
+      },
+      "ConcExpanded": {
+        "Name": "Ativar Concentração Expandida",
+        "Hint": "Conjuradores mantêm várias magias de Concentração (limite = maior modificador de conjuração), fazem um único teste com CD maior por magia mantida e, ao falhar por 10 ou mais com 2+ magias, sofrem a Explosão Arcana."
+      },
+      "ConcDcMods": {
+        "Name": "Modificador de CD por magias mantidas",
+        "Hint": "Valores somados à CD do teste de Concentração, separados por vírgula: 1ª posição = 1 magia, 2ª = 2 magias, e assim por diante. Acima do último, repete o último. Padrão: 0, 5, 10, 15, 20, 25."
+      },
+      "AnomalyTable": {
+        "Name": "Tabela de Anomalias (opcional)",
+        "Hint": "UUID de uma Tabela Rolável para sugerir a Anomalia Mágica após uma Explosão Arcana (arraste a tabela para um campo de texto para ver o UUID, ex.: RollTable.abc123). Vazio = só o aviso."
+      },
+      "AnomalyVisibility": {
+        "Name": "Aviso de Anomalia Mágica",
+        "Hint": "Quem vê a mensagem de Anomalia Mágica Temporária.",
+        "GM": "Só o Mestre",
+        "Public": "Todos"
+      }
+    },
+    "Currency": {
+      "DA": "Diamante Astral",
+      "DAAbbr": "DA"
+    },
+    "Sheet": {
+      "Rank": "Rank {rank}",
+      "Label": "Zintharion",
+      "TabOverview": "Ficha",
+      "TabCharacter": "Personagem",
+      "HD": "DV",
+      "Init": "Ini",
+      "Prof": "Prof.",
+      "ProfShort": "BP",
+      "XP": "EXP",
+      "SaveOf": "Salvaguarda de {ability}",
+      "SpellDC": "CD de magia"
+    },
+    "XP": {
+      "Title": "Tabela de Experiência — Zintharion",
+      "Hint": "XP total necessário para alcançar cada nível. O nível 1 sempre começa em 0. O número de linhas é o nível máximo do mundo.",
+      "Level": "Nível",
+      "Total": "XP total",
+      "Next": "Para o próximo",
+      "Rank": "Rank",
+      "AddLevel": "Adicionar nível",
+      "RemoveLevel": "Remover último",
+      "Reset": "Restaurar padrão",
+      "Import": "Importar JSON",
+      "Export": "Copiar JSON",
+      "Save": "Salvar",
+      "ImportPrompt": "Cole abaixo uma lista de números, por exemplo: [0, 300, 900, 2700]",
+      "Copied": "Tabela de XP copiada para a área de transferência.",
+      "Saved": "Tabela de XP salva. Nível máximo agora é {max}.",
+      "ErrorOrder": "O XP precisa aumentar a cada nível. Corrija as linhas marcadas em vermelho.",
+      "ErrorImport": "Não foi possível ler o JSON. Use uma lista de números, por exemplo: [0, 300, 900].",
+      "ErrorMin": "A tabela precisa ter pelo menos 1 nível.",
+      "ResetConfirm": "Voltar a tabela de XP para o padrão de Zintharion? (30 níveis; nível 3 = 1.000 XP)"
+    },
+    "Ranks": {
+      "Title": "Tabela de Ranks — Zintharion",
+      "Hint": "Cada rank começa no nível indicado e vai até o nível anterior ao próximo rank.",
+      "From": "A partir do nível",
+      "Rank": "Rank",
+      "Background": "Cor de fundo",
+      "Text": "Cor do texto",
+      "Preview": "Prévia",
+      "Add": "Adicionar rank",
+      "Remove": "Remover",
+      "Reset": "Restaurar padrão",
+      "Save": "Salvar",
+      "Saved": "Tabela de ranks salva.",
+      "ErrorOrder": "Os níveis iniciais precisam ser diferentes, crescentes e o rank não pode ficar vazio.",
+      "Emblem": "Emblema",
+      "EmblemHint": "Coloque as imagens dos emblemas na pasta <code>Data/{folder}</code> com o nome do rank (ex.: <b>F.png</b>, <b>SS.webp</b>, <b>omega.png</b>). Elas são encontradas sozinhas ao abrir o mundo ou pelo botão \"Procurar emblemas\". Se preferir, escolha uma imagem manualmente na coluna Emblema.",
+      "Auto": "automático",
+      "Detect": "Procurar emblemas",
+      "EmblemsFound": "{count} emblema(s) encontrado(s) em {folder}: {list}"
+    },
+    "Sync": {
+      "AppTitle": "Site Zintharion",
+      "DirectoryButton": "Site Zintharion",
+      "NotConfigured": "Configure o endereço do site e o seu token nas configurações do módulo Zintharion.",
+      "OpenSettings": "Abrir configurações",
+      "Unreachable": "Não foi possível falar com o site ({url}). Confira o endereço e a internet.",
+      "Refresh": "Atualizar lista",
+      "OpenSite": "Abrir no site",
+      "OpenSheet": "Abrir ficha",
+      "Loading": "Carregando fichas do site…",
+      "NoCharacters": "Nenhuma ficha disponível para este token.",
+      "Level": "nível",
+      "LastSync": "sincronizada em",
+      "Pull": "Receber",
+      "Push": "Enviar",
+      "Import": "Importar",
+      "TagNotApproved": "não aprovada",
+      "TagDead": "morto",
+      "TagPullRequested": "enviada pelo site",
+      "TagSiteChanged": "mudou no site",
+      "TagPushRequested": "site pediu envio",
+      "TagOtherWorld": "em outro mundo",
+      "PullTooltip": "Receber do site (atualiza esta ficha com o site)",
+      "PullTooltipUnlinked": "Receber do site (escolher a ficha do site)",
+      "PushTooltip": "Enviar ao site (atualiza o site com esta ficha)",
+      "PushTooltipUnlinked": "Enviar ao site (escolher a ficha do site)",
+      "ChooseTitle": "Ligar à ficha do site",
+      "ChooseHint": "Qual ficha do site corresponde a <b>{name}</b>?",
+      "AlreadyLinked": "já ligada",
+      "Link": "Ligar",
+      "ConflictTitle": "Ficha ligada a outro ator",
+      "ConflictHint": "Esta ficha do site já está ligada a outro ator do Foundry (talvez em outro mundo). Ligar a este ator a partir de agora?",
+      "PullDone": "{name}: {count} campo(s) atualizados com o site.",
+      "PullNothing": "{name} já está igual ao site.",
+      "PushApplied": "{name} enviada ao site ({count} campo(s) mudaram).",
+      "PushPending": "{name} enviada. O envio vai para a staff aprovar no site.",
+      "NoOwner": "— Sem dono (só o mestre) —",
+      "ImportTitle": "Importar {name}",
+      "ImportHint": "Cria um ator com os dados do site. Classe, espécie e antecedente são importados depois pelo Plutonium (a ficha mostra o que falta).",
+      "Owner": "Jogador dono",
+      "Imported": "{name} criado a partir do site.",
+      "InboxNotice": "Site Zintharion: {receive} ficha(s) para receber, {send} pedido(s) de envio, {newOnes} ficha(s) nova(s) para importar.",
+      "XpButton": "Enviar tabela de XP ao site",
+      "XpDone": "Tabela de XP enviada ao site ({max} níveis).",
+      "BuildTitle": "Ficha nova: monte pelo Plutonium",
+      "BuildHint": "Esta ficha veio do site no nível 0. Importe pelo Plutonium o que foi escolhido no site (atributos e perícias são escolhidos lá). Quando a classe entrar, o XP do site é aplicado. No fim, clique em Enviar para o site copiar a ficha.",
+      "BuildClass": "Classe",
+      "BuildSpecies": "Espécie",
+      "BuildBackground": "Antecedente",
+      "BuildOpenPlutonium": "Plutonium Import",
+      "BuildDismiss": "Dispensar",
+      "BuildNoPlutonium": "O Plutonium não está ativo ou não aparece nesta ficha.",
+      "XpTooltip": "O site passa a usar a tabela de XP deste mundo. Também é enviada sozinha quando você salva a tabela.",
+      "XpFailed": "Não foi possível enviar a tabela de XP ao site: {error}",
+      "ConfiguredTitle": "Ficha já montada no Foundry",
+      "ConfiguredHint": "<b>{name}</b> já tem classe no Foundry e nunca foi sincronizada. Para não estragar a ficha, o Foundry vale: ela será <b>enviada</b> ao site primeiro. Depois disso, Receber e Enviar funcionam normalmente. Enviar agora?",
+      "CreatedLevel0": "{name} criado no nível 0, só com nome, retrato e textos do site. Monte classe, espécie e antecedente pelo Plutonium e depois clique em Enviar.",
+      "BuildFinished": "{name}: montagem concluída. Clique em Enviar para atualizar o site.",
+      "RestoreTitle": "Restaurar a ficha do site",
+      "RestoreHint": "O site tem a ficha completa de <b>{site}</b> (classe, características, magias, itens e efeitos), salva no último envio. Ela vai <b>substituir</b> tudo em <b>{name}</b>. Continuar?",
+      "Restored": "{name}: ficha completa restaurada do site ({count} campo(s) atualizados com as mudanças feitas no site depois do envio).",
+      "FullSheetTag": "ficha completa salva",
+      "ImportPullFailed": "{name} foi criado, mas a ficha do site não chegou: {error}. Clique em Receber na ficha para tentar de novo."
+    },
+    "Concentration": {
+      "Breakdown": "<i class=\"fas fa-brain\" inert></i> CD base <b>{base}</b> + {count} magias mantidas (<b>+{modifier}</b>) = CD <b>{dc}</b>",
+      "ExplosionTitle": "Falha Crítica de Concentração",
+      "ExplosionShort": "Explosão Arcana",
+      "FailedBy": "Falhou por {margin} (resultado {total} contra CD {dc}). As magias se rompem de uma vez.",
+      "SpellsLost": "Magias encerradas",
+      "Force": "de força",
+      "SelfDamage": "{name} recebe o dano inteiro (ignora resistência a força, não imunidade). Já aplicado.",
+      "AreaSave": "Criaturas a até {radius} pés: salvaguarda de <b>Destreza CD {dc}</b>. Falha: dano total. Sucesso: metade. Use o cartão de dano abaixo para aplicar.",
+      "InArea": "Na área",
+      "AreaDamage": "dano na área",
+      "Conditions": "O conjurador fica <b>Caído</b>, <b>Incapacitado</b> até o fim do próximo turno e recebe <b>+4 de Exaustão</b>.",
+      "IncapacitatedHint": "Explosão Arcana: incapacitado até o fim do próximo turno. Em combate, sai sozinho.",
+      "AnomalyTitle": "Anomalia Mágica Temporária",
+      "AnomalyText": "A explosão de {name} deixou uma anomalia na área. Magias que estavam mantidas:",
+      "AnomalySuggestion": "Sugestão",
+      "ExplosionError": "Erro ao resolver a Explosão Arcana. Veja o console (F12)."
+    }
+  },
+  "DND5E.SpellLevel10": "10º Círculo",
+  "DND5E.SpellLevel11": "11º Círculo",
+  "DND5E.SpellLevel12": "12º Círculo",
+  "DND5E.SpellLevel13": "13º Círculo",
+  "DND5E.SpellLevel14": "14º Círculo",
+  "DND5E.SpellLevel15": "15º Círculo",
+  "DND5E.SpellLevel16": "16º Círculo",
+  "DND5E.SpellLevel17": "17º Círculo",
+  "DND5E.SpellLevel18": "18º Círculo",
+  "DND5E.SpellLevel19": "19º Círculo",
+  "DND5E.SpellLevel20": "20º Círculo"
+}

@@ -1,0 +1,780 @@
+/* ==========================================================================
+   Zintharion — layout da ficha (v2)
+   Janela: .zintharion-layout
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout {
+  --zin-navy: #0A1A24;
+  --zin-navy-2: #0D2129;
+  --zin-deep: #0F2B33;
+  --zin-panel: #143842;
+  --zin-line: #2A5560;
+  --zin-teal-dark: #1F6F78;
+  --zin-teal: #3CC6B4;
+  --zin-gold: #D9B24C;
+  --zin-gold-light: #F3D27A;
+  --zin-gold-dark: #8C6A1F;
+  --zin-light: #EDE6D3;
+  --zin-muted: #A9C4C0;
+  --zin-hex: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  --zin-shield: polygon(0 0, 100% 0, 100% 58%, 50% 100%, 0 58%);
+  min-width: 960px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .window-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--zin-navy);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout:not(.minimized) .window-content::before {
+  display: none;
+}
+
+/* ==========================================================================
+   Cabeçalho
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .sheet-header.zin-header {
+  flex: 0 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr) 190px;
+  column-gap: 22px;
+  align-items: stretch;
+  padding: 56px 22px 16px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--zin-gold);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Fundo: arte do personagem desfocada + véu */
+.zintharion-layout .zin-header::before {
+  content: "";
+  position: absolute;
+  inset: -30px;
+  z-index: -2;
+  background: var(--zin-header-art) center 20% / cover no-repeat;
+  filter: blur(18px) saturate(1.15);
+  opacity: 0.4;
+}
+
+.zintharion-layout .zin-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 60% 90% at 88% 30%, color-mix(in srgb, var(--zin-rank-bg, #3CC6B4) 18%, transparent), transparent 70%),
+    linear-gradient(180deg, rgba(10, 26, 36, 0.35) 0%, rgba(10, 26, 36, 0.9) 75%, var(--zin-navy) 100%);
+}
+
+/* ---------- Coluna 1: retrato + vida ---------- */
+
+.zintharion-layout .zin-col-portrait {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-portrait {
+  position: relative;
+  width: 100%;
+  height: 168px;
+  border-radius: 10px;
+  border: 2px solid var(--zin-gold);
+  box-shadow:
+    0 0 0 4px rgba(10, 26, 36, 0.85),
+    0 0 22px color-mix(in srgb, var(--zin-rank-bg, #3CC6B4) 40%, transparent);
+  overflow: hidden;
+  cursor: var(--cursor-pointer);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-portrait > img,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-portrait > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  object-fit: cover;
+  object-position: top center;
+  border: none;
+  border-radius: 0;
+}
+
+.zintharion-layout .zin-vital {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.zintharion-layout .zin-vital-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-11);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--zin-muted);
+}
+
+.zintharion-layout .zin-vital-head i {
+  color: var(--zin-gold);
+  margin-right: 3px;
+}
+
+.zintharion-layout .zin-vital-head .config-button {
+  color: var(--zin-muted);
+  font-size: var(--font-size-11);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-hp-meter {
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--zin-gold);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-hp-meter > .tmp {
+  width: 46px;
+  border-inline-start: 1px solid rgba(217, 178, 76, 0.5);
+  background: rgba(10, 26, 36, 0.6);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-hd-meter {
+  height: 20px;
+  border-radius: 5px;
+  border: 1px solid var(--zin-line);
+  overflow: hidden;
+  font-size: var(--font-size-12);
+}
+
+/* ---------- Coluna 2: identidade + atributos ---------- */
+
+.zintharion-layout .zin-col-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-header .zin-name {
+  width: 100%;
+  font-family: var(--dnd5e-font-modesto), serif;
+  font-size: 42px;
+  line-height: 1.1;
+  height: auto;
+  padding: 0;
+  color: var(--zin-gold-light);
+  letter-spacing: 1px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 18px rgba(217, 178, 76, 0.25);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zintharion-layout .zin-details {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  margin: 2px 0 14px;
+  font-size: var(--font-size-13);
+  color: var(--zin-muted);
+}
+
+.zintharion-layout .zin-details > span:not(:last-child)::after {
+  content: "•";
+  margin: 0 8px;
+  color: var(--zin-gold);
+  opacity: 0.7;
+}
+
+.zintharion-layout .zin-details b {
+  color: var(--zin-light);
+}
+
+.zintharion-layout .zin-details .zin-class {
+  color: var(--zin-teal);
+  font-weight: 700;
+}
+
+/* Linha de atributos */
+.zintharion-layout .zin-stats {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.zintharion-layout .zin-divider {
+  align-self: stretch;
+  width: 1px;
+  margin: 6px 2px 22px;
+  background: linear-gradient(180deg, transparent, var(--zin-gold), transparent);
+  opacity: 0.6;
+}
+
+.zintharion-layout .zin-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 64px;
+  flex: none;
+}
+
+.zintharion-layout .zin-stat-caption {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--zin-muted);
+  white-space: nowrap;
+}
+
+/* Hexágono (atributos e iniciativa): moldura dourada + miolo azul */
+.zintharion-layout .zin-hex {
+  position: relative;
+  width: 62px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  clip-path: var(--zin-hex);
+  background: linear-gradient(160deg, var(--zin-gold-light), var(--zin-gold-dark));
+  transition: transform 150ms ease, filter 150ms ease;
+}
+
+.zintharion-layout .zin-hex::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  clip-path: var(--zin-hex);
+  background:
+    radial-gradient(circle at 50% 15%, rgba(60, 198, 180, 0.35), transparent 60%),
+    linear-gradient(180deg, #174450 0%, var(--zin-navy) 100%);
+}
+
+.zintharion-layout .zin-hex > * {
+  position: relative;
+  z-index: 1;
+}
+
+.zintharion-layout .zin-stat:hover .zin-hex {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(217, 178, 76, 0.55));
+}
+
+.zintharion-layout .zin-hex-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--zin-teal);
+  line-height: 1;
+}
+
+.zintharion-layout .zin-hex-mod {
+  font-family: var(--dnd5e-font-roboto);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  color: #FFFFFF;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.zintharion-layout .zin-hex .config-button {
+  font-size: 16px;
+  color: var(--zin-gold);
+}
+
+.zintharion-layout .zin-ability-score {
+  position: relative;
+  z-index: 2;
+  margin-top: -10px;
+  min-width: 34px;
+  padding: 0 6px;
+  border-radius: 10px;
+  border: 1px solid var(--zin-gold);
+  background: var(--zin-navy);
+  color: var(--zin-light);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+.zintharion-layout .zin-ability-score input {
+  width: 30px;
+  height: 18px;
+  padding: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--zin-light);
+}
+
+.zintharion-layout .zin-ability-save {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--zin-muted);
+  white-space: nowrap;
+}
+
+.zintharion-layout .zin-ability-save i {
+  font-size: 0.85em;
+  opacity: 0.6;
+}
+
+.zintharion-layout .zin-save-prof .zin-ability-save {
+  color: var(--zin-gold-light);
+  font-weight: 700;
+}
+
+.zintharion-layout .zin-save-prof .zin-ability-save i {
+  opacity: 1;
+  color: var(--zin-gold);
+}
+
+/* Iniciativa: miolo escuro e dourado para diferenciar */
+.zintharion-layout .zin-stat-init .zin-hex::before {
+  background:
+    radial-gradient(circle at 50% 15%, rgba(217, 178, 76, 0.3), transparent 60%),
+    linear-gradient(180deg, #2B2A36 0%, var(--zin-navy) 100%);
+}
+
+.zintharion-layout .zin-stat-init .zin-hex-label {
+  color: var(--zin-gold-light);
+}
+
+/* Classe de Armadura: escudo */
+.zintharion-layout .zin-shield {
+  position: relative;
+  width: 60px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  padding-bottom: 10px;
+  clip-path: var(--zin-shield);
+  background: linear-gradient(160deg, var(--zin-gold-light), var(--zin-gold-dark));
+}
+
+.zintharion-layout .zin-shield::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  clip-path: var(--zin-shield);
+  background:
+    radial-gradient(circle at 50% 10%, rgba(237, 230, 211, 0.25), transparent 60%),
+    linear-gradient(180deg, #3A4652 0%, #151C24 100%);
+}
+
+.zintharion-layout .zin-shield > * {
+  position: relative;
+  z-index: 1;
+}
+
+.zintharion-layout .zin-shield .zin-stat-value {
+  font-family: var(--dnd5e-font-roboto);
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.zintharion-layout .zin-shield .config-button {
+  font-size: 16px;
+  color: var(--zin-gold);
+}
+
+.zintharion-layout .rollable {
+  cursor: var(--cursor-pointer);
+}
+
+/* ---------- Coluna 3: progresso ---------- */
+
+.zintharion-layout .zin-col-side {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.zintharion-layout .zin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-inspiration {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  border: 1px solid var(--zin-line);
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-muted);
+  transition: all 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-inspiration.active {
+  border-color: var(--zin-gold);
+  color: var(--zin-gold-light);
+  box-shadow: 0 0 10px rgba(217, 178, 76, 0.6);
+}
+
+.zintharion-layout .zin-progress {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Medalhão de rank (reaproveita aura/brilho/fita do tema) */
+.zintharion-layout .zin-rank-medal {
+  --crest-size: 70px;
+  position: relative;
+  width: calc(var(--crest-size) + 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.6));
+  transition: transform 180ms ease;
+}
+
+.zintharion-layout .zin-rank-medal:hover {
+  transform: scale(1.06);
+}
+
+.zintharion-layout .zin-rank-medal .zin-rank-ribbon {
+  margin-top: -8px;
+  padding: 1px 14px 2px;
+}
+
+.zintharion-layout .zin-rank-medal .zin-rank-ribbon small {
+  font-size: 9px;
+}
+
+.zintharion-layout .zin-rank-medal .zin-rank-ribbon b {
+  font-size: 16px;
+}
+
+.zintharion-layout .zin-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-level .level-badge {
+  width: 70px;
+  height: 70px;
+  margin: 0;
+}
+
+.zintharion-layout .zin-level-caption {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--zin-muted);
+}
+
+.zintharion-layout .zin-pb {
+  padding: 1px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--zin-gold);
+  background: rgba(10, 26, 36, 0.8);
+  color: var(--zin-gold-light);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.zintharion-layout .zin-xp {
+  margin-top: auto;
+}
+
+.zintharion-layout .zin-xp-label {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--zin-muted);
+}
+
+.zintharion-layout .zin-xp-caption {
+  margin-right: auto;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: var(--zin-teal);
+}
+
+.zintharion-layout .zin-xp-label input {
+  width: 64px;
+  height: 18px;
+  padding: 0;
+  text-align: right;
+  color: var(--zin-light);
+}
+
+.zintharion-layout .zin-xp-label .value {
+  color: var(--zin-light);
+  font-weight: 700;
+}
+
+.zintharion-layout .zin-xp-bar {
+  height: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid var(--zin-line);
+  background:
+    linear-gradient(90deg, var(--zin-teal-dark), var(--zin-teal)) no-repeat left / var(--bar-percentage) 100%,
+    var(--zin-navy);
+  box-shadow: 0 0 8px rgba(60, 198, 180, 0.25);
+}
+
+/* ==========================================================================
+   Abas horizontais
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs {
+  flex: 0 0 auto;
+  position: relative;
+  inset: auto;
+  transform: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  width: auto;
+  margin: 0;
+  padding: 0 12px;
+  background: linear-gradient(180deg, var(--zin-navy-2), var(--zin-navy));
+  border: none;
+  border-bottom: 1px solid var(--zin-line);
+  overflow-x: auto;
+  scrollbar-width: none;
+  z-index: 1;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs > .item {
+  --icon-size: 14px;
+  --icon-fill: var(--zin-muted);
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 10px 14px 9px;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--zin-muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  background: none;
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs > .item span {
+  text-decoration: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs > .item i {
+  font-size: 13px;
+  margin: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs > .item:hover {
+  color: var(--zin-light);
+  --icon-fill: var(--zin-light);
+  background: rgba(60, 198, 180, 0.07);
+  text-shadow: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs > .item.active {
+  color: var(--zin-gold-light);
+  --icon-fill: var(--zin-gold-light);
+  border-bottom-color: var(--zin-gold);
+  background: linear-gradient(180deg, transparent 30%, rgba(217, 178, 76, 0.12));
+  text-shadow: 0 0 8px rgba(217, 178, 76, 0.45);
+}
+
+.zintharion-layout nav.zin-tabs .zin-tabs-logo {
+  margin-left: auto;
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  object-fit: contain;
+  border: none;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   Corpo
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .sheet-body {
+  flex: 1;
+  mask-image: none;
+  background: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .sheet-body .main-content,
+.dnd5e2.sheet.actor.character.zintharion-layout.sidebar-collapsed .sheet-body .main-content {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 14px 16px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout.tab-details .tab-body {
+  padding-top: 0;
+}
+
+/* ---------- Aba "Ficha" ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-overview.active {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.zintharion-layout .zin-overview-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.zintharion-layout .zin-panel {
+  padding: 10px 12px 12px;
+  border: 1px solid var(--zin-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--zin-panel), var(--zin-deep));
+}
+
+.zintharion-layout .zin-panel-title {
+  margin: 0 0 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(217, 178, 76, 0.4);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--zin-gold-light);
+}
+
+.zintharion-layout .zin-panel-title i {
+  color: var(--zin-gold);
+  margin-right: 4px;
+}
+
+.zintharion-layout .zin-pips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.zintharion-layout .zin-death {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.zintharion-layout .zin-death-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.zintharion-layout .zin-death-label {
+  font-size: 12px;
+  color: var(--zin-muted);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-death-roll {
+  margin-top: 4px;
+  width: 100%;
+  border: 1px solid var(--zin-gold);
+  border-radius: 6px;
+  background: rgba(10, 26, 36, 0.8);
+  color: var(--zin-gold-light);
+  font-size: 12px;
+}
+
+/* Favoritos: usa o bloco do sistema e esconde o cartão lateral antigo */
+.zintharion-layout .zin-overview-right .sidebar {
+  display: block;
+  margin: 0;
+}
+
+.zintharion-layout .zin-overview-right .sidebar > .card {
+  display: none;
+}
+
+.zintharion-layout .zin-overview-right .favorites {
+  padding: 10px 12px;
+  border: 1px solid var(--zin-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(20, 56, 66, 0.7), rgba(15, 43, 51, 0.7));
+}
+
+/* ---------- Plutonium: botão "Subir de nível" ---------- */
+
+.zintharion-layout .zin-levelup {
+  display: flex;
+  align-items: center;
+}
+
+.zintharion-layout .zin-levelup:empty {
+  display: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-levelup button.imp-cls__btn-sheet-level-up {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-size-14, 14px);
+  line-height: 1;
+  border-radius: 6px;
+  border: 1px solid var(--zin-gold);
+  background: linear-gradient(180deg, rgba(217, 178, 76, 0.25), rgba(10, 26, 36, 0.85));
+  color: var(--zin-gold-light);
+  box-shadow: 0 0 8px rgba(217, 178, 76, 0.35);
+  transition: all 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-levelup button.imp-cls__btn-sheet-level-up:hover:not([disabled]) {
+  box-shadow: 0 0 14px rgba(217, 178, 76, 0.8);
+  color: #fff;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-levelup button.imp-cls__btn-sheet-level-up[disabled] {
+  border-color: var(--zin-line);
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Atalho do Plutonium Import na barra da janela */
+.dnd5e2.sheet.actor.character.zintharion-layout .window-header .zin-plut-import {
+  color: var(--zin-gold-light);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .window-header .zin-plut-import:hover {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(217, 178, 76, 0.9);
+}

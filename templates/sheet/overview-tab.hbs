@@ -1,0 +1,55 @@
+<section class="tab zin-overview {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+
+    <div class="zin-overview-left">
+        {{!-- Exaustão --}}
+        {{#if exhaustion}}
+        <div class="zin-panel">
+            <h3 class="zin-panel-title"><i class="fas fa-bed" inert></i> {{ localize "DND5E.Exhaustion" }}</h3>
+            <div class="pips zin-pips" data-prop="system.attributes.exhaustion">
+                {{#each exhaustion.left}}{{> ".zin-pip" }}{{/each}}
+                {{#each exhaustion.right}}{{> ".zin-pip" }}{{/each}}
+            </div>
+        </div>
+        {{/if}}
+
+        {{!-- Testes contra a morte --}}
+        {{#if death}}
+        <div class="zin-panel">
+            <h3 class="zin-panel-title"><i class="fas fa-skull" inert></i> {{ localize "DND5E.DeathSave" }}</h3>
+            <div class="zin-death">
+                <div class="zin-death-row">
+                    <span class="zin-death-label">{{ localize "DND5E.DeathSaveSuccesses" }}</span>
+                    <div class="pips zin-pips" data-prop="system.attributes.death.success">
+                        {{#each death.success}}{{> ".zin-pip" }}{{/each}}
+                    </div>
+                </div>
+                <div class="zin-death-row">
+                    <span class="zin-death-label">{{ localize "DND5E.DeathSaveFailures" }}</span>
+                    <div class="pips zin-pips" data-prop="system.attributes.death.failure">
+                        {{#each death.failure}}{{> ".zin-pip" }}{{/each}}
+                    </div>
+                </div>
+                {{#if editable}}
+                <button type="button" class="zin-death-roll" data-action="showConfiguration" data-config="death">
+                    <i class="fas fa-cog" inert></i> {{ localize "DND5E.DeathSaveConfigure" }}
+                </button>
+                {{else}}
+                <button type="button" class="zin-death-roll {{ rollableClass }}" data-action="roll" data-type="deathSave">
+                    <i class="fas fa-dice-d20" inert></i> {{ localize "DND5E.DeathSaveRoll" }}
+                </button>
+                {{/if}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+    {{!-- Favoritos (reaproveita o bloco do sistema; o cartão lateral fica escondido) --}}
+    <div class="zin-overview-right">
+        {{> "systems/dnd5e/templates/actors/character-sidebar.hbs" }}
+    </div>
+</section>
+
+{{#*inline ".zin-pip"}}
+<button type="button" class="{{ classes }}" data-action="togglePip" data-n="{{ n }}" data-tooltip="{{ tooltip }}"
+        aria-label="{{ label }}" aria-pressed="{{ filled }}"></button>
+{{/inline}}

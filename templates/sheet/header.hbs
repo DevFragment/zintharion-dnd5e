@@ -1,0 +1,218 @@
+<header class="sheet-header zin-header" style="--zin-header-art: url('{{ zinHeaderArt }}'); --zin-rank-bg: {{ zinRank.bg }};">
+
+    {{!-- ===== Coluna 1: retrato e vida ===== --}}
+    <div class="zin-col-portrait">
+        <div class="portrait zin-portrait {{#if portrait.token}}token{{/if}}">
+            {{#with portrait}}
+            {{#if isVideo}}
+            <video src="{{ src }}" autoplay muted disablepictureinpicture loop playsinline
+                   {{#if @root.editable}}data-action="{{ action }}"{{else}}data-action="showArtwork"{{/if}}
+                   {{#if (and @root.editable path)}}data-edit="{{ path }}" data-type="{{ type }}"{{/if}}></video>
+            {{else}}
+            <img src="{{ src }}" alt="{{ @root.actor.name }}"
+                 {{#if @root.editable}}data-action="{{ action }}"{{else}}data-action="showArtwork"{{/if}}
+                 {{#if (and @root.editable path)}}data-edit="{{ path }}" data-type="{{ type }}"{{/if}}>
+            {{/if}}
+            {{/with}}
+        </div>
+
+        {{!-- Vida: barra + temporários --}}
+        {{#with system.attributes.hp}}
+        <div class="zin-vital">
+            <div class="zin-vital-head">
+                <span><i class="fas fa-heart" inert></i> {{ localize "DND5E.HitPoints" }}</span>
+                {{#if @root.editable}}
+                <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                        data-config="hitPoints" data-tooltip="DND5E.HitPointsConfig"
+                        aria-label="{{ localize 'DND5E.HitPointsConfig' }}">
+                    <i class="fas fa-cog" inert></i>
+                </button>
+                {{/if}}
+            </div>
+            <div class="meter sectioned hit-points meter-lg zin-hp-meter">
+                <div class="progress hit-points
+                     {{~#if (gt tempmax 0)}} temp-positive
+                     {{~else if (lt tempmax 0)}} temp-negative{{/if}}"
+                     role="meter" aria-valuemin="0" aria-valuenow="{{ value }}"
+                     aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%">
+                    <div class="label">
+                        <span class="value">{{ value }}</span>
+                        <span class="separator">&sol;</span>
+                        <span class="max">{{ effectiveMax }}</span>
+                        {{#if tempmax}}
+                        <span class="bonus">{{dnd5e-numberFormat tempmax signDisplay="always"}}</span>
+                        {{/if}}
+                    </div>
+                    <input type="text" name="system.attributes.hp.value" data-dtype="Number"
+                           data-max="{{ ifThen effectiveMax effectiveMax max }}"
+                           placeholder="0" value="{{ value }}" hidden>
+                </div>
+                <div class="tmp" data-tooltip="DND5E.HitPointsTemp">
+                    <input type="text" name="system.attributes.hp.temp" data-dtype="Number"
+                           placeholder="{{ localize 'DND5E.TMP' }}" value="{{#if temp}}{{ temp }}{{/if}}">
+                </div>
+            </div>
+        </div>
+        {{/with}}
+
+        {{!-- Dados de vida --}}
+        {{#with system.attributes.hd}}
+        <div class="zin-vital">
+            <div class="zin-vital-head">
+                <span><i class="fas fa-dice-d20" inert></i> {{ localize "DND5E.HitDice" }}</span>
+                {{#if @root.editable}}
+                <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                        data-config="hitDice" data-tooltip="DND5E.HitDiceConfig"
+                        aria-label="{{ localize 'DND5E.HitDiceConfig' }}">
+                    <i class="fas fa-cog" inert></i>
+                </button>
+                {{/if}}
+            </div>
+            <div class="meter hit-dice progress meter-lg zin-hd-meter" role="meter" aria-valuemin="0"
+                 aria-valuenow="{{ value }}" aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%">
+                <div class="label">
+                    <span class="value">{{ value }}</span>
+                    <span class="separator">&sol;</span>
+                    <span class="max">{{ max }}</span>
+                </div>
+            </div>
+        </div>
+        {{/with}}
+    </div>
+
+    {{!-- ===== Coluna 2: identidade e atributos ===== --}}
+    <div class="zin-col-main">
+        {{#if editable}}
+        <input type="text" name="name" class="document-name uninput zin-name" value="{{ actor._source.name }}">
+        {{else}}
+        <div class="document-name zin-name">{{ actor.name }}</div>
+        {{/if}}
+
+        <div class="zin-details">
+            <span class="zin-class">{{ labels.class }}</span>
+            {{#each zinDetails}}<span>{{ this }}</span>{{/each}}
+            {{#each zinMovement}}<span>{{ label }} <b>{{ value }}</b> {{ units }}</span>{{/each}}
+            {{#if zinSpellDC}}<span>{{ localize "ZINTHARION.Sheet.SpellDC" }} <b>{{ zinSpellDC }}</b> ({{ zinSpellAbility }})</span>{{/if}}
+        </div>
+
+        <div class="zin-stats">
+            {{!-- Classe de Armadura --}}
+            <div class="zin-stat zin-stat-ac" data-tooltip="DND5E.ArmorClass">
+                <div class="zin-shield">
+                    {{#if editable}}
+                    <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                            data-config="armorClass" aria-label="{{ localize 'DND5E.ARMORCLASS.Action.Configure' }}">
+                        <i class="fas fa-cog" inert></i>
+                    </button>
+                    {{else}}
+                    <span class="zin-stat-value" data-attribution="attributes.ac"
+                          data-attribution-caption="DND5E.ArmorClass" data-tooltip-direction="DOWN">
+                        {{{ ifThen system.attributes.ac.value system.attributes.ac.value "&mdash;" }}}
+                    </span>
+                    {{/if}}
+                </div>
+                <span class="zin-stat-caption">{{ localize "DND5E.AC" }}</span>
+            </div>
+
+            <span class="zin-divider" aria-hidden="true"></span>
+
+            {{!-- Atributos --}}
+            {{#each zinAbilities}}
+            {{> "modules/zintharion-dnd5e/templates/sheet/ability.hbs" }}
+            {{/each}}
+
+            <span class="zin-divider" aria-hidden="true"></span>
+
+            {{!-- Iniciativa --}}
+            <div class="zin-stat zin-stat-init">
+                <div class="zin-hex {{#unless editable}}{{ rollableClass }}{{/unless}}" data-action="roll" data-type="initiative">
+                    <span class="zin-hex-label">{{ localize "ZINTHARION.Sheet.Init" }}</span>
+                    {{#if editable}}
+                    <button type="button" class="config-button unbutton" data-action="showConfiguration"
+                            data-config="initiative" data-tooltip="DND5E.InitiativeConfig"
+                            aria-label="{{ localize 'DND5E.InitiativeConfig' }}">
+                        <i class="fas fa-cog" inert></i>
+                    </button>
+                    {{else}}
+                    <span class="zin-hex-mod">{{ dnd5e-numberFormat system.attributes.init.total signDisplay="always" }}</span>
+                    {{/if}}
+                </div>
+                <span class="zin-stat-caption">{{ localize "DND5E.Initiative" }}</span>
+            </div>
+        </div>
+    </div>
+
+    {{!-- ===== Coluna 3: progresso ===== --}}
+    <div class="zin-col-side">
+        <div class="zin-actions">
+            {{!-- Espaço do botão "Subir de nível" do Plutonium (fica vazio sem ele) --}}
+            <div class="zin-levelup level-information"></div>
+            {{#if showRests}}
+            {{#each CONFIG.restTypes}}
+            <button type="button" class="{{ @key }}-rest gold-button" data-action="rest" data-type="{{ @key }}"
+                    data-tooltip aria-label="{{ localize label }}">
+                <i class="{{ icon }}" inert></i>
+            </button>
+            {{/each}}
+            {{/if}}
+            <button type="button" class="unbutton zin-inspiration {{#if system.attributes.inspiration}}active{{/if}}"
+                    data-action="toggleInspiration" data-tooltip="DND5E.Inspiration"
+                    aria-label="{{ localize 'DND5E.Inspiration' }}" aria-pressed="{{ system.attributes.inspiration }}">
+                <i class="fas fa-sun" inert></i>
+            </button>
+        </div>
+
+        <div class="zin-progress">
+            {{!-- Rank --}}
+            {{#if zinShowRank}}
+            <div class="zin-rank-crest zin-rank-medal" style="--zin-rank-bg: {{ zinRank.bg }};"
+                 data-tooltip="{{ zinRankTooltip }}" aria-label="{{ zinRankTooltip }}">
+                <span class="zin-rank-aura"></span>
+                {{#if zinRank.img}}
+                <span class="zin-rank-emblem-holder">
+                    <img class="zin-rank-emblem" src="{{ zinRank.img }}" alt="">
+                    <span class="zin-rank-shine" style="mask-image: url('{{ zinRank.img }}'); -webkit-mask-image: url('{{ zinRank.img }}');"></span>
+                </span>
+                {{else}}
+                <span class="zin-rank-glyph">{{ zinRank.rank }}</span>
+                {{/if}}
+                <span class="zin-rank-ribbon"><small>Rank</small><b>{{ zinRank.rank }}</b></span>
+            </div>
+            {{/if}}
+
+            {{!-- Nível --}}
+            <div class="zin-level">
+                <div class="level-badge badge" aria-label="{{ localize 'DND5E.LevelNumber' level=system.details.level }}">
+                    {{ system.details.level }}
+                </div>
+                <span class="zin-level-caption">{{ localize "DND5E.Level" }}</span>
+                <span class="zin-pb" data-tooltip="DND5E.Proficiency">
+                    {{ localize "ZINTHARION.Sheet.ProfShort" }} {{ dnd5e-numberFormat system.attributes.prof signDisplay="always" }}
+                </span>
+            </div>
+        </div>
+
+        {{#if showExperience}}
+        {{#with system.details.xp}}
+        <div class="zin-xp">
+            <div class="zin-xp-label">
+                <span class="zin-xp-caption">{{ localize "ZINTHARION.Sheet.XP" }}</span>
+                {{#if @root.editable}}
+                <input type="text" name="system.details.xp.value" class="value uninput" data-dtype="Number"
+                       value="{{ value }}">
+                {{else}}
+                <span class="value">{{ dnd5e-numberFormat value }}</span>
+                {{/if}}
+                {{#unless @root.epicBoonsEarned}}
+                <span class="separator">&sol;</span>
+                <span class="max">{{ dnd5e-numberFormat max }}</span>
+                {{/unless}}
+            </div>
+            <div class="zin-xp-bar" role="meter" aria-label="{{ localize 'DND5E.ExperiencePoints.Progress' }}"
+                 aria-valuemin="{{ min }}" aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
+                 aria-valuetext="{{ pct }}%" style="--bar-percentage: {{ pct }}%;"></div>
+        </div>
+        {{/with}}
+        {{/if}}
+    </div>
+</header>
