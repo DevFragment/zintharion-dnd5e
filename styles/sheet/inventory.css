@@ -1,0 +1,253 @@
+/* ==========================================================================
+   Ficha Zintharion — aba Inventário
+   Seções que abrem e fecham (scripts/sheet/collapse.mjs), resumo compacto no topo
+   e linhas mais fáceis de ler.
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] {
+  --zin-inv-gap: 10px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"].active {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zin-inv-gap);
+}
+
+/* ---------- Topo: carga + recipientes numa faixa só ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] > .top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: var(--zin-inv-gap);
+  margin: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] > .top > .encumbrance {
+  flex: 1 1 260px;
+  max-width: 420px;
+  margin: 0;
+  border: 1px solid var(--zin-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--zin-panel), var(--zin-deep));
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] > .top > .containers {
+  flex: 2 1 240px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+  margin: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] > .top > .containers:empty {
+  display: none;
+}
+
+/* ---------- Barra de busca ---------- */
+
+
+
+
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .inventory-element > .middle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .inventory-element > .middle > item-list-controls {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- Botões pequenos (abrir/fechar tudo) ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-all {
+  display: flex;
+  gap: 4px;
+  flex: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-tool {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--zin-line);
+  border-radius: 6px;
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-muted);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-tool:hover,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-tool:focus-visible {
+  border-color: var(--zin-gold);
+  color: var(--zin-gold-light);
+  box-shadow: 0 0 8px rgba(217, 178, 76, 0.35);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-tool.zin-danger:hover,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-tool.zin-danger:focus-visible {
+  border-color: #c4473f;
+  color: #ff8a80;
+  box-shadow: 0 0 8px rgba(196, 71, 63, 0.4);
+}
+
+/* ---------- Seções (Armas, Equipamento, Consumíveis...) ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-section {
+  margin: 0;
+  border: 1px solid var(--zin-line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(15, 43, 51, 0.55);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-section + .items-section {
+  margin-top: var(--zin-inv-gap);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-header {
+  align-items: center;
+  background: linear-gradient(180deg, #1C5A66, #154650);
+  border-bottom: 1px solid var(--zin-gold);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-header .item-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 9px;
+  border: 1px solid rgba(217, 178, 76, 0.6);
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-gold-light);
+  font-family: var(--dnd5e-font-roboto, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Botão de seta: aberto ▾ / fechado ▸ */
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  min-height: 0;
+  margin: 0 2px 0 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--zin-gold-light);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 150ms ease, transform 200ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle:hover,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle:focus-visible {
+  background: rgba(217, 178, 76, 0.18);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle i {
+  transition: transform 200ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapsed > .items-header .zin-collapse-toggle i,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-collapsed > .zin-diary-head .zin-collapse-toggle i {
+  transform: rotate(-90deg);
+}
+
+/* Seção fechada: só o cabeçalho, sem as colunas */
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-section.zin-collapsed > .item-list {
+  display: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-section.zin-collapsed > .items-header {
+  border-bottom-color: transparent;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-section.zin-collapsed > .items-header > .item-header {
+  visibility: hidden;
+}
+
+/* ---------- Linhas de item ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item {
+  border-bottom: 1px solid rgba(42, 85, 96, 0.6);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item:last-child {
+  border-bottom: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item:nth-child(even) > .item-row {
+  background: rgba(10, 26, 36, 0.25);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item > .item-row {
+  transition: background 120ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item > .item-row:hover {
+  background: rgba(60, 198, 180, 0.08);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item:not(.collapsed) > .item-row {
+  background: rgba(217, 178, 76, 0.08);
+  box-shadow: inset 3px 0 0 var(--zin-gold);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item .item-description .wrapper {
+  border-top: 1px dashed rgba(217, 178, 76, 0.35);
+}
+
+/* ---------- Carga no rodapé ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .inventory-element > .bottom {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle,
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-collapse-toggle i,
+  .dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .item-list > .item > .item-row {
+    transition: none;
+  }
+}
+
+/* Cabeçalho da seção inteiro clicável (abre/fecha) */
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-header.zin-collapsible-header {
+  cursor: pointer;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-header.zin-collapsible-header:hover {
+  background: linear-gradient(180deg, #22697a, #18505c);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] .items-header .item-name .zin-collapse-toggle {
+  margin: 0 2px 0 0;
+}

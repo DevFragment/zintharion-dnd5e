@@ -103,6 +103,18 @@ export function registerSettings() {
     requiresReload: true
   });
 
+  game.settings.register(MODULE_ID, "sheetScale", {
+    name: `${S}.SheetScale.Name`,
+    hint: `${S}.SheetScale.Hint`,
+    scope: "client",
+    config: true,
+    type: Number,
+    range: { min: 70, max: 120, step: 5 },
+    default: 90,
+    onChange: applySheetScale
+  });
+  applySheetScale();
+
   game.settings.register(MODULE_ID, "exhaustionMax", {
     name: `${S}.ExhaustionMax.Name`,
     hint: `${S}.ExhaustionMax.Hint`,
@@ -143,14 +155,6 @@ export function registerSettings() {
     default: ""
   });
 
-  game.settings.register(MODULE_ID, "siteCheckOnLoad", {
-    name: `${S}.SiteCheck.Name`,
-    hint: `${S}.SiteCheck.Hint`,
-    scope: "client",
-    config: true,
-    type: Boolean,
-    default: true
-  });
 
   // Concentração Expandida
   game.settings.register(MODULE_ID, "concentrationExpanded", {
@@ -193,4 +197,11 @@ export function registerSettings() {
     },
     default: "gm"
   });
+}
+
+/** Tamanho da ficha Zintharion (zoom da área de conteúdo), em %. */
+export function applySheetScale() {
+  let value = 90;
+  try { value = Number(game.settings.get(MODULE_ID, "sheetScale")) || 90; } catch {}
+  document.documentElement.style.setProperty("--zin-sheet-scale", String(value / 100));
 }

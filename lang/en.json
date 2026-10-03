@@ -15,7 +15,7 @@
       },
       "ExhaustionMax": {
         "Name": "Maximum Exhaustion levels",
-        "Hint": "How many Exhaustion levels exist. The last level is marked as death on the sheet. Zintharion default: 10."
+        "Hint": "How many Exhaustion levels exist; the character dies at the last one. Each level gives −1 to d20 rolls and −5 ft of speed. Zintharion default: 10."
       },
       "XpMenu": {
         "Name": "Experience Table",
@@ -44,13 +44,9 @@
         "Name": "Website token",
         "Hint": "Your personal token, created at Profile → Foundry integration. Stored only on this computer."
       },
-      "SiteCheck": {
-        "Name": "Notify on load",
-        "Hint": "When the world opens, tells you if there are characters to receive or send."
-      },
       "ConcExpanded": {
         "Name": "Enable Expanded Concentration",
-        "Hint": "Casters can maintain several Concentration spells (limit = highest spellcasting modifier), make a single save with a higher DC per maintained spell and, failing by 10 or more with 2+ spells, suffer an Arcane Explosion."
+        "Hint": "Casters can maintain several Concentration spells (limit = highest spellcasting modifier), make a single save with a higher DC per maintained spell and, with 2+ spells, a result of DC − 10 or lower (e.g. DC 15 → 5) causes an Arcane Explosion."
       },
       "ConcDcMods": {
         "Name": "DC modifier per maintained spell",
@@ -65,6 +61,10 @@
         "Hint": "Who sees the Temporary Magical Anomaly message.",
         "GM": "GM only",
         "Public": "Everyone"
+      },
+      "SheetScale": {
+        "Name": "Sheet size (%)",
+        "Hint": "Size of the Zintharion character sheet content. 100 = original size; default 90. Only for you."
       }
     },
     "Currency": {
@@ -166,7 +166,6 @@
       "ImportHint": "Creates an actor with the website data. Class, species and background are imported afterwards with Plutonium (the sheet shows what is missing).",
       "Owner": "Owning player",
       "Imported": "{name} created from the website.",
-      "InboxNotice": "Zintharion website: {receive} character(s) to receive, {send} send request(s), {newOnes} new character(s) to import.",
       "XpButton": "Send XP table to website",
       "XpDone": "XP table sent to the website ({max} levels).",
       "BuildTitle": "New sheet: build it with Plutonium",
@@ -206,6 +205,31 @@
       "AnomalyText": "{name}'s explosion left an anomaly in the area. Spells that were maintained:",
       "AnomalySuggestion": "Suggestion",
       "ExplosionError": "Error resolving the Arcane Explosion. Check the console (F12)."
+    },
+    "Diary": {
+      "Tab": "Journal",
+      "Title": "Journal",
+      "Add": "New entry",
+      "Search": "Search the journal",
+      "Date": "Date",
+      "EntryTitle": "Title",
+      "Untitled": "Untitled",
+      "DefaultTitle": "Session {n}",
+      "Delete": "Delete entry",
+      "DeleteConfirm": "Delete the entry <b>{title}</b>? This cannot be undone.",
+      "Empty": "No entries yet. Write down what happened each session: places, people, clues and goals.",
+      "NoResults": "No entries found.",
+      "AddFirst": "Write the first entry",
+      "Placeholder": "What happened this session? Places, people, clues, goals… (saves automatically)",
+      "Text": "Entry text",
+      "Saving": "Saving…",
+      "Saved": "Saved",
+      "SaveError": "Could not save"
+    },
+    "Collapse": {
+      "Toggle": "Expand or collapse",
+      "ExpandAll": "Expand all",
+      "CollapseAll": "Collapse all"
     }
   },
   "DND5E.SpellLevel10": "10th Level",

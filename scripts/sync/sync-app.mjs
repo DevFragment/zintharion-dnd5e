@@ -188,32 +188,3 @@ export async function sendXpTableToSite({ notify=false }={}) {
     return false;
   }
 }
-
-/* -------------------------------------------- */
-/*  Aviso ao entrar no mundo                    */
-/* -------------------------------------------- */
-
-/** Confere se há fichas para receber/enviar e avisa (uma vez por carregamento). */
-export async function checkSiteInbox() {
-  if ( !siteConfig().ready || !game.settings.get(MODULE_ID, "siteCheckOnLoad") ) return;
-  let characters;
-  try {
-    characters = await listSiteCharacters();
-  } catch (err) {
-    console.warn(`${MODULE_ID} | Site: ${err.message}`);
-    return;
-  }
-  let receive = 0;
-  let send = 0;
-  let newOnes = 0;
-  for ( const c of characters ) {
-    const actor = actorForSiteCharacter(c);
-    if ( actor?.isOwner ) {
-      if ( c.pullRequested || c.siteChanged ) receive++;
-      if ( c.pushRequested ) send++;
-    } else if ( !actor && !c.foundryActorId && c.pullRequested && game.user.can("ACTOR_CREATE") ) newOnes++;
-  }
-  if ( !(receive || send || newOnes) ) return;
-  ui.notifications.info(i18n("InboxNotice", { receive, send, newOnes }));
-  SiteSyncApp.open();
-}

@@ -11,7 +11,7 @@ import { decorateCharacterSheet, refreshCharacterSheets } from "./sheet.mjs";
 import { createZintharionCharacterSheet } from "./sheet/character-sheet.mjs";
 import { registerPlutoniumLevelUp, patchPlutoniumCurrency } from "./compat/plutonium.mjs";
 import { buildEnvelope, pullActor, pushActor, importSiteCharacter } from "./sync/sync.mjs";
-import { SiteSyncApp, checkSiteInbox } from "./sync/sync-app.mjs";
+import { SiteSyncApp } from "./sync/sync-app.mjs";
 import { addSiteSyncButtons, addPendingBuildBanner } from "./sync/sheet-sync.mjs";
 import { buildSummary } from "./sync/summary.mjs";
 import { registerConcentration, triggerArcaneExplosion } from "./concentration.mjs";
@@ -41,6 +41,8 @@ Hooks.once("init", () => {
     const max = game.settings.get(MODULE_ID, "exhaustionMax");
     exhaustion.levels = max;
     exhaustion.img = `modules/${MODULE_ID}/assets/exhaustion/exhaustion.svg`;
+    // Regra de Zintharion: −1 no d20 e −1,5 m (5 pés) de deslocamento por nível.
+    exhaustion.reduction = { ...(exhaustion.reduction ?? {}), rolls: 1, speed: 5 };
     // dnd5e 6.x: `conditions` define status por nível (padrão: morte no 6).
     if ( exhaustion.conditions ) {
       const deathStatuses = Object.values(exhaustion.conditions).flat();
@@ -121,8 +123,6 @@ Hooks.once("ready", () => {
   if ( game.user.isGM ) detectRankEmblems().catch(err => console.warn(`${MODULE_ID} | Emblemas`, err));
   // Plutonium: Diamante Astral conta como dinheiro na Loja de Equipamentos.
   try { patchPlutoniumCurrency(); } catch (err) { console.warn(`${MODULE_ID} | Plutonium`, err); }
-  // Site: avisa se há fichas para receber ou enviar.
-  setTimeout(() => checkSiteInbox(), 3000);
 });
 
 // Botão "Site Zintharion" na aba de Atores.

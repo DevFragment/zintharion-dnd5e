@@ -1,6 +1,10 @@
 import { MODULE_ID } from "../constants.mjs";
 import { getRank } from "../ranks.mjs";
 import { addPlutoniumImportButton } from "../compat/plutonium.mjs";
+import { enhanceInventory } from "./collapse.mjs";
+import {
+  bindDiary, flushDiary, onDiaryAdd, onDiaryCollapse, onDiaryDelete, onDiaryToggle, prepareDiaryContext
+} from "./diary.mjs";
 
 const T = path => `modules/${MODULE_ID}/templates/sheet/${path}`;
 
@@ -16,7 +20,13 @@ export function createZintharionCharacterSheet() {
     /** @override */
     static DEFAULT_OPTIONS = {
       classes: ["zintharion-layout"],
-      position: { width: 1080, height: 940 }
+      position: { width: 980, height: 860 },
+      actions: {
+        zinDiaryAdd: onDiaryAdd,
+        zinDiaryDelete: onDiaryDelete,
+        zinDiaryToggle: onDiaryToggle,
+        zinDiaryCollapse: onDiaryCollapse
+      }
     };
 
     /**
@@ -47,6 +57,12 @@ export function createZintharionCharacterSheet() {
       for ( const [id, part] of Object.entries(base) ) {
         if ( ["header", "tabs", "sidebar", "abilityScores"].includes(id) ) continue;
         parts[id] = part;
+        // Diário logo depois da Biografia.
+        if ( id === "biography" ) parts.diary = {
+          container: { classes: ["tab-body"], id: "tabs" },
+          template: T("diary-tab.hbs"),
+          scrollable: [".zin-diary-list"]
+        };
       }
       return parts;
     })();
@@ -54,15 +70,16 @@ export function createZintharionCharacterSheet() {
     /** @override */
     static TABS = [
       { tab: "sidebar", label: "ZINTHARION.Sheet.TabOverview", icon: "fas fa-scroll" },
-      ...Base.TABS.map(t => {
-        if ( t.tab === "details" ) return { ...t, label: "ZINTHARION.Sheet.TabCharacter", icon: "fas fa-user-shield" };
-        return t;
+      ...Base.TABS.flatMap(t => {
+        if ( t.tab === "details" ) return [{ ...t, label: "ZINTHARION.Sheet.TabCharacter", icon: "fas fa-user-shield" }];
+        if ( t.tab === "biography" ) return [t, { tab: "diary", label: "ZINTHARION.Diary.Tab", icon: "fas fa-book-open" }];
+        return [t];
       })
     ];
 
     /** Tamanho inicial maior que a ficha padrão (o layout é mais largo). */
     constructor(options={}) {
-      options.position = { width: 1080, height: 940, ...(options.position ?? {}) };
+      options.position = { width: 980, height: 860, ...(options.position ?? {}) };
       super(options);
     }
 
@@ -80,6 +97,20 @@ export function createZintharionCharacterSheet() {
 
     /* -------------------------------------------- */
 
+    /** Diário: salva o que foi digitado e ainda não gravou antes de redesenhar ou fechar. */
+    async _preRender(context, options) {
+      await flushDiary(this).catch(err => console.warn(`${MODULE_ID} | Diário`, err));
+      return super._preRender(context, options);
+    }
+
+    /** @inheritDoc */
+    async _preClose(options) {
+      await flushDiary(this).catch(err => console.warn(`${MODULE_ID} | Diário`, err));
+      return super._preClose(options);
+    }
+
+    /* -------------------------------------------- */
+
     /** @inheritDoc */
     async _onRender(context, options) {
       // A aba "Ficha" reaproveita o bloco lateral do sistema só pelos favoritos.
@@ -88,6 +119,12 @@ export function createZintharionCharacterSheet() {
       this.element.querySelectorAll(".zin-overview .sidebar > .card").forEach(el => el.remove());
       await super._onRender(context, options);
       try { addPlutoniumImportButton(this); } catch (err) { console.warn(`${MODULE_ID} | Plutonium Import`, err); }
+      try {
+        enhanceInventory(this);
+        bindDiary(this);
+      } catch (err) {
+        console.warn(`${MODULE_ID} | Inventário/Diário`, err);
+      }
     }
 
     /* -------------------------------------------- */
@@ -97,6 +134,7 @@ export function createZintharionCharacterSheet() {
       context = await super._preparePartContext(partId, context, options);
       if ( (partId === "header") && !this.actor.limited ) await this.#prepareZinHeader(context, options);
       if ( partId === "tabs" ) context.zinLogo = game.settings.get(MODULE_ID, "logoPath") || null;
+      if ( partId === "diary" ) context.zinDiary = await prepareDiaryContext(this);
       return context;
     }
 

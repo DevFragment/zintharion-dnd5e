@@ -1,0 +1,96 @@
+{{!-- Aba Diário. Controles com "always-interactive" funcionam no modo Jogar da ficha. --}}
+<section class="tab zin-diary {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+
+    <header class="zin-diary-toolbar">
+        <h3 class="zin-diary-heading"><i class="fas fa-book-open" inert></i> {{ localize "ZINTHARION.Diary.Title" }}
+            {{#if zinDiary.count}}<span class="zin-count">{{ zinDiary.count }}</span>{{/if}}</h3>
+        {{#if zinDiary.count}}
+        <label class="zin-diary-search">
+            <i class="fas fa-magnifying-glass" inert></i>
+            <input type="search" class="always-interactive" placeholder="{{ localize 'ZINTHARION.Diary.Search' }}"
+                   aria-label="{{ localize 'ZINTHARION.Diary.Search' }}" data-zin-diary-search>
+        </label>
+        <div class="zin-collapse-all">
+            <button type="button" class="zin-tool always-interactive" data-action="zinDiaryCollapse" data-mode="expand"
+                    data-tooltip="ZINTHARION.Collapse.ExpandAll" aria-label="{{ localize 'ZINTHARION.Collapse.ExpandAll' }}">
+                <i class="fas fa-angles-down" inert></i>
+            </button>
+            <button type="button" class="zin-tool always-interactive" data-action="zinDiaryCollapse" data-mode="collapse"
+                    data-tooltip="ZINTHARION.Collapse.CollapseAll" aria-label="{{ localize 'ZINTHARION.Collapse.CollapseAll' }}">
+                <i class="fas fa-angles-up" inert></i>
+            </button>
+        </div>
+        {{/if}}
+        {{#if zinDiary.canEdit}}
+        <button type="button" class="zin-diary-add always-interactive" data-action="zinDiaryAdd">
+            <i class="fas fa-plus" inert></i> {{ localize "ZINTHARION.Diary.Add" }}
+        </button>
+        {{/if}}
+    </header>
+
+    {{#if zinDiary.count}}
+    <ol class="zin-diary-list unlist">
+        {{#each zinDiary.entries}}
+        <li class="zin-diary-entry {{#unless expanded}}zin-collapsed{{/unless}}" data-entry-id="{{ id }}"
+            data-search="{{ search }}">
+
+            <div class="zin-diary-head">
+                <button type="button" class="zin-collapse-toggle always-interactive" data-action="zinDiaryToggle"
+                        aria-expanded="{{#if expanded}}true{{else}}false{{/if}}"
+                        aria-label="{{ localize 'ZINTHARION.Collapse.Toggle' }}">
+                    <i class="fas fa-chevron-down" inert></i>
+                </button>
+
+                {{#if (and @root.zinDiary.canEdit expanded)}}
+                {{!-- Sem "name": o diário salva sozinho (scripts/sheet/diary.mjs), sem recarregar a ficha --}}
+                <input type="date" class="zin-diary-date always-interactive" data-zin-diary-field="date"
+                       value="{{ date }}" aria-label="{{ localize 'ZINTHARION.Diary.Date' }}">
+                <input type="text" class="zin-diary-title always-interactive" data-zin-diary-field="title"
+                       value="{{ title }}" placeholder="{{ localize 'ZINTHARION.Diary.Untitled' }}"
+                       aria-label="{{ localize 'ZINTHARION.Diary.EntryTitle' }}">
+                {{else}}
+                {{!-- Fechada (ou só leitura): clicar em qualquer parte do cabeçalho abre/fecha --}}
+                <span class="zin-diary-date">{{#if dateLabel}}{{ dateLabel }}{{else}}—{{/if}}</span>
+                <span class="zin-diary-summary" data-action="zinDiaryToggle">
+                    <span class="zin-diary-title">{{#if title}}{{ title }}{{else}}{{ localize "ZINTHARION.Diary.Untitled" }}{{/if}}</span>
+                    {{#unless expanded}}{{#if preview}}<span class="zin-diary-preview">{{ preview }}</span>{{/if}}{{/unless}}
+                </span>
+                {{/if}}
+
+                {{#if @root.zinDiary.canEdit}}
+                <button type="button" class="zin-tool zin-danger always-interactive" data-action="zinDiaryDelete"
+                        data-tooltip="ZINTHARION.Diary.Delete" aria-label="{{ localize 'ZINTHARION.Diary.Delete' }}">
+                    <i class="fas fa-trash" inert></i>
+                </button>
+                {{/if}}
+            </div>
+
+            {{#if expanded}}
+            <div class="zin-diary-body">
+                {{#if @root.zinDiary.canEdit}}
+                <textarea class="zin-diary-text always-interactive" data-zin-diary-field="body" rows="6"
+                          placeholder="{{ localize 'ZINTHARION.Diary.Placeholder' }}"
+                          aria-label="{{ localize 'ZINTHARION.Diary.Text' }}">{{ text }}</textarea>
+                <span class="zin-diary-status" aria-live="polite"></span>
+                {{else}}
+                <p class="zin-diary-text zin-readonly">{{ text }}</p>
+                {{/if}}
+            </div>
+            {{/if}}
+        </li>
+        {{/each}}
+    </ol>
+    <p class="zin-diary-noresults" hidden>{{ localize "ZINTHARION.Diary.NoResults" }}</p>
+    {{else}}
+    <div class="zin-diary-empty">
+        <i class="fas fa-feather-pointed" inert></i>
+        <p>{{ localize "ZINTHARION.Diary.Empty" }}</p>
+        {{#if zinDiary.canEdit}}
+        <button type="button" class="zin-diary-add always-interactive" data-action="zinDiaryAdd">
+            <i class="fas fa-plus" inert></i> {{ localize "ZINTHARION.Diary.AddFirst" }}
+        </button>
+        {{/if}}
+    </div>
+    {{/if}}
+
+</section>

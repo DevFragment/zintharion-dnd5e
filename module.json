@@ -2,7 +2,7 @@
   "id": "zintharion-dnd5e",
   "title": "Zintharion — Ficha D&D 5e",
   "description": "Regras e visual de Zintharion para a ficha do dnd5e: tema azul e dourado, brasão, rank por nível, tabela de XP editável, níveis acima de 20, Diamante Astral e Exaustão até 10, e sincronização de fichas com o site Zintharion (Enviar/Receber).",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "authors": [
     {
       "name": "Pedro"

@@ -5,8 +5,8 @@
  * - Um único teste de Concentração ao sofrer dano, com CD = max(10, dano/2) + modificador
  *   pelo número de magias mantidas (tabela configurável).
  * - Falhou: o sistema já oferece o botão "Quebrar concentração", que encerra TODAS as magias.
- * - Falhou por 10 ou mais mantendo 2+ magias: Falha Crítica → Explosão Arcana, resolvida
- *   automaticamente no computador de quem rolou o teste.
+ * - Mantendo 2+ magias, resultado igual ou menor que CD − 10 é Falha Crítica → Explosão Arcana,
+ *   resolvida automaticamente no computador de quem rolou o teste. Ex.: 2 magias, CD 15 → 5 ou menos.
  *
  * Tudo é feito em cima das peças do próprio dnd5e (efeitos de concentração, cartão de
  * teste, cartão de dano com aplicação, cartão de salvaguarda), sem reimplementar o rastreio.
@@ -103,6 +103,17 @@ function patchConcentrationDC() {
     const dc = base + modifier;
     lastBreakdown.set(this, { damage, base, count, modifier, dc });
     return dc;
+  };
+
+  // Teste de Concentração rolado pela ficha (sem cartão de dano): o dnd5e usaria CD 10 fixa.
+  // Sem CD informada, usa a CD mínima com o acréscimo pelas magias mantidas (ex.: 2 magias → 15).
+  const originalRoll = Actor5e.prototype.rollConcentration;
+  if ( typeof originalRoll !== "function" ) return;
+  Actor5e.prototype.rollConcentration = function(config={}, ...args) {
+    if ( isExpandedConcentration() && (this.type === "character") && !Number.isFinite(Number(config?.target)) ) {
+      config = { ...config, target: this.getConcentrationDC(0) };
+    }
+    return originalRoll.call(this, config, ...args);
   };
 }
 
@@ -309,6 +320,9 @@ export async function triggerArcaneExplosion(actor, state) {
   await postAnomaly(actor, spells);
 }
 
+/** Falha Crítica: resultado igual ou menor que CD − 10 (ex.: CD 15 → 5 ou menos). */
+export const isCriticalConcentrationFailure = (total, dc) => total <= (dc - 10);
+
 /** Depois do teste de Concentração: detecta a Falha Crítica. */
 async function onRollConcentration(rolls, { subject: actor }={}) {
   if ( !isExpandedConcentration() || !actor || (actor.type !== "character") ) return;
@@ -317,8 +331,8 @@ async function onRollConcentration(rolls, { subject: actor }={}) {
   if ( !roll || !Number.isFinite(dc) || !roll.isFailure ) return;
 
   const effects = Array.from(actor.concentration?.effects ?? []);
-  const margin = dc - roll.total;
-  if ( (effects.length < 2) || (margin < 10) ) return; // o sistema cuida da falha comum
+  // Falha comum (ou só 1 magia): o sistema oferece o botão de quebrar a concentração.
+  if ( (effects.length < 2) || !isCriticalConcentrationFailure(roll.total, dc) ) return;
 
   const spells = effects.map(e => ({ name: getEffectSpellName(e, actor), level: getEffectSpellLevel(e) }));
   try {

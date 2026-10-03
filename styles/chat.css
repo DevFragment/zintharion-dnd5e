@@ -1,0 +1,81 @@
+/* Cartões de chat: Concentração Expandida e Explosão Arcana. */
+
+/* Concentração Expandida: cartões de chat ------------------------------- */
+
+.zin-conc-breakdown {
+  margin: 0 0 6px;
+  padding: 4px 8px;
+  border-left: 3px solid #D9B24C;
+  border-radius: 4px;
+  background: rgba(23, 68, 80, 0.12);
+  font-size: var(--font-size-12, 12px);
+}
+
+.zin-chat-card {
+  border: 1px solid #D9B24C;
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0F2A36 0%, #0A1A24 100%);
+  color: #E8F1EF;
+  font-size: var(--font-size-13, 13px);
+}
+
+.zin-chat-card header {
+  padding: 6px 10px;
+  background: linear-gradient(90deg, #7A1F1F, #3B2A7A);
+  color: #F3D27A;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-bottom: 1px solid #D9B24C;
+}
+
+.zin-chat-card.zin-anomaly header {
+  background: linear-gradient(90deg, #174450, #3B2A7A);
+}
+
+.zin-chat-card p,
+.zin-chat-card ul {
+  margin: 6px 10px;
+}
+
+.zin-chat-card ul {
+  padding-left: 18px;
+}
+
+.zin-chat-card b {
+  color: #F3D27A;
+}
+
+.zin-chat-card .zin-explosion-sub {
+  color: #A9C4C0;
+  font-style: italic;
+}
+
+.zin-chat-card .zin-explosion-damage {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 10px;
+  padding: 6px;
+  border: 1px solid rgba(217, 178, 76, 0.5);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.zin-chat-card .zin-explosion-damage span {
+  color: #A9C4C0;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+.zin-chat-card .zin-explosion-damage b {
+  font-size: 22px;
+  color: #FF9F6B;
+  text-shadow: 0 0 8px rgba(255, 120, 60, 0.7);
+}
+
+.zin-chat-card .zin-explosion-conditions {
+  padding-top: 6px;
+  border-top: 1px dashed rgba(217, 178, 76, 0.4);
+}

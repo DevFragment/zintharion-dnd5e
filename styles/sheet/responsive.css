@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Ficha Zintharion — janelas menores
+   Usa container queries: o layout responde à LARGURA DA JANELA da ficha,
+   não à tela inteira (dá para ter uma ficha estreita ao lado do mapa).
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout {
+  min-width: 460px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout > .window-content {
+  container: zin-sheet / inline-size;
+  /* Escala da ficha (configuração "Tamanho da ficha", por pessoa). Padrão: 90%. */
+  zoom: var(--zin-sheet-scale, 0.9);
+}
+
+/* ---------- Até 960px: rank/nível/XP descem para uma faixa ---------- */
+
+@container zin-sheet (width < 960px) {
+  .dnd5e2.sheet.actor.character.zintharion-layout .sheet-header.zin-header {
+    grid-template-columns: 170px minmax(0, 1fr);
+    row-gap: 12px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-side {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto auto minmax(180px, 1fr);
+    align-items: center;
+    gap: 14px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-side .zin-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-side .zin-xp {
+    grid-column: auto;
+    margin-top: 0;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-stats {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-overview.active {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+/* ---------- Até 760px: uma coluna nas abas ---------- */
+
+@container zin-sheet (width < 760px) {
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-overview.active {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Aba Personagem do dnd5e (perícias | resto) */
+  .dnd5e2.sheet.actor.character.zintharion-layout .sheet-body .tab-body .col-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .tab[data-tab="inventory"] > .top > .encumbrance {
+    max-width: none;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .sheet-header.zin-header .zin-name {
+    font-size: 34px;
+  }
+}
+
+/* ---------- Até 600px: cabeçalho empilhado ---------- */
+
+@container zin-sheet (width < 600px) {
+  .dnd5e2.sheet.actor.character.zintharion-layout .sheet-header.zin-header {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 48px 14px 12px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-portrait {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    align-items: start;
+    column-gap: 12px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-portrait .zin-portrait {
+    grid-row: span 2;
+    height: 130px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-side {
+    grid-template-columns: auto auto;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-col-side .zin-xp {
+    grid-column: 1 / -1;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-divider {
+    display: none;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-stats {
+    justify-content: center;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .sheet-header.zin-header .zin-name {
+    font-size: 28px;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout nav.zin-tabs .zin-tabs-logo {
+    display: none;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-search {
+    flex: 1 1 100%;
+    order: 5;
+  }
+
+  .dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-head {
+    flex-wrap: wrap;
+  }
+}

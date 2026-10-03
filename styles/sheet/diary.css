@@ -1,0 +1,374 @@
+/* ==========================================================================
+   Ficha Zintharion — aba Diário (templates/sheet/diary-tab.hbs)
+   ========================================================================== */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .tab.zin-diary.active {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 100%;
+}
+
+/* ---------- Barra: título, busca, abrir/fechar, nova entrada ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(217, 178, 76, 0.4);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto 0 0;
+  border: none;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--zin-gold-light);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-heading > i {
+  color: var(--zin-gold);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 0 1 240px;
+  min-width: 140px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-search i {
+  position: absolute;
+  left: 9px;
+  color: var(--zin-muted);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-search input {
+  width: 100%;
+  height: 30px;
+  padding-left: 28px;
+  border: 1px solid var(--zin-line);
+  border-radius: 6px;
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-light);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-search input:focus {
+  border-color: var(--zin-gold);
+  box-shadow: 0 0 0 1px rgba(217, 178, 76, 0.4);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  height: 30px;
+  min-height: 0;
+  margin: 0;
+  padding: 0 12px;
+  border: 1px solid var(--zin-gold);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(217, 178, 76, 0.28), rgba(10, 26, 36, 0.85));
+  color: var(--zin-gold-light);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-add:hover {
+  color: #fff;
+  box-shadow: 0 0 12px rgba(217, 178, 76, 0.6);
+}
+
+/* ---------- Entradas ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry {
+  border: 1px solid var(--zin-line);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--zin-panel), var(--zin-deep));
+  overflow: hidden;
+  transition: border-color 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry:not(.zin-collapsed) {
+  border-color: rgba(217, 178, 76, 0.6);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry[hidden] {
+  display: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 2px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry:not(.zin-collapsed) > .zin-diary-head {
+  border-bottom: 1px solid rgba(217, 178, 76, 0.35);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-date {
+  flex: none;
+  width: auto;
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--zin-line);
+  border-radius: 5px;
+  background: rgba(10, 26, 36, 0.7);
+  color: var(--zin-teal);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-title {
+  flex: 1;
+  min-width: 0;
+  height: 28px;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--zin-light);
+  font-family: var(--dnd5e-font-modesto, serif);
+  font-size: 17px;
+  line-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout input.zin-diary-title:hover {
+  border-color: var(--zin-line);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout input.zin-diary-title:focus {
+  border-color: var(--zin-gold);
+  background: rgba(10, 26, 36, 0.7);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout span.zin-diary-title {
+  cursor: pointer;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry.zin-collapsed > .zin-diary-body {
+  display: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body {
+  padding: 8px 12px 12px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body prose-mirror,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor {
+  min-height: 120px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor-content {
+  color: var(--zin-light);
+  line-height: 1.55;
+}
+
+/* ---------- Vazio / sem resultados ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-empty,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-noresults {
+  margin: 0;
+  padding: 32px 16px;
+  border: 1px dashed var(--zin-line);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--zin-muted);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-empty i {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 28px;
+  color: var(--zin-gold);
+  opacity: 0.7;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-empty p {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ---------- Entrada fechada: título + prévia, tudo clicável ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-summary {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  cursor: pointer;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-summary .zin-diary-title {
+  height: auto;
+  line-height: 1.3;
+  border: none;
+  padding: 0 6px;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-preview {
+  padding: 0 6px;
+  color: var(--zin-muted);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry.zin-collapsed:hover {
+  border-color: rgba(217, 178, 76, 0.45);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry.zin-collapsed > .zin-diary-head .zin-tool {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry.zin-collapsed:hover > .zin-diary-head .zin-tool,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-entry > .zin-diary-head .zin-tool:focus-visible {
+  opacity: 1;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body prose-mirror {
+  display: block;
+  min-height: 160px;
+  border: 1px solid var(--zin-line);
+  border-radius: 6px;
+  background: rgba(10, 26, 36, 0.45);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body prose-mirror:focus-within {
+  border-color: var(--zin-gold);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-empty .zin-diary-add {
+  margin-top: 14px;
+}
+
+/* ---------- Texto legível no fundo escuro (editor e leitura) ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body prose-mirror,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor-content,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .ProseMirror {
+  color: var(--zin-light);
+  caret-color: var(--zin-gold-light);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor-content,
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .ProseMirror {
+  min-height: 120px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--zin-gold-light);
+  border-color: rgba(217, 178, 76, 0.35);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body :is(strong, b) {
+  color: #fff;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body a:not(.content-link) {
+  color: var(--zin-teal);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body blockquote {
+  border-left: 3px solid var(--zin-gold);
+  color: var(--zin-muted);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body ::selection {
+  background: rgba(217, 178, 76, 0.35);
+}
+
+/* Barra de ferramentas do editor no tema */
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor-menu {
+  background: rgba(10, 26, 36, 0.85);
+  border-bottom: 1px solid var(--zin-line);
+  color: var(--zin-light);
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body .editor-menu button {
+  color: var(--zin-light);
+}
+
+/* ---------- Campo de texto do diário (salva sozinho) ---------- */
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-body {
+  position: relative;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout textarea.zin-diary-text {
+  display: block;
+  width: 100%;
+  min-height: 140px;
+  field-sizing: content; /* cresce com o texto */
+  max-height: 60vh;
+  padding: 10px 12px;
+  border: 1px solid var(--zin-line);
+  border-radius: 6px;
+  background: rgba(10, 26, 36, 0.55);
+  color: var(--zin-light);
+  caret-color: var(--zin-gold-light);
+  font-family: var(--dnd5e-font-roboto, sans-serif);
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout textarea.zin-diary-text::placeholder {
+  color: var(--zin-muted);
+  opacity: 0.6;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout textarea.zin-diary-text:focus {
+  border-color: var(--zin-gold);
+  box-shadow: 0 0 0 1px rgba(217, 178, 76, 0.35);
+  outline: none;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout p.zin-diary-text.zin-readonly {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--zin-light);
+  line-height: 1.6;
+}
+
+.dnd5e2.sheet.actor.character.zintharion-layout .zin-diary-status {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  font-size: 11px;
+  color: var(--zin-muted);
+  pointer-events: none;
+}
